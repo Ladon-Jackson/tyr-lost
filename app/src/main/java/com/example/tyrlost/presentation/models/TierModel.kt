@@ -8,6 +8,7 @@ import com.example.tyrlost.ui.theme.orangeTier
 import com.example.tyrlost.ui.theme.redTier
 import com.example.tyrlost.ui.theme.yellowTier
 
+
 data class TierModel(val name: String, val color: Color, val images: List<Int> = emptyList())
 
 val testTiers = listOf(

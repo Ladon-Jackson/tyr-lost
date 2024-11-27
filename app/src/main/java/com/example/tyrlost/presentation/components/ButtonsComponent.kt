@@ -1,6 +1,5 @@
 package com.example.tyrlost.presentation.components
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -17,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import com.example.tyrlost.ui.theme.TyrlostTheme
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ButtonsComponent() {
 
@@ -33,18 +31,13 @@ fun ButtonsComponent() {
                 modifier = Modifier
                     .padding(PaddingValues(end = 10.dp))
                     .weight(1f)
-            ) {
-                Text("Add Tier")
-            }
+            ) { Text("Add Tier") }
             Button(
                 onClick = {},
                 modifier = Modifier
                     .padding(PaddingValues(end = 10.dp))
                     .weight(1f)
-            ) {
-                Text("Add Item")
-            }
-
+            ) { Text("Add Item") }
         }
     }
 }

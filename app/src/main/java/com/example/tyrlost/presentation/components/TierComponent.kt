@@ -2,6 +2,9 @@ package com.example.tyrlost.presentation.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,7 +24,12 @@ import com.example.tyrlost.presentation.models.TierModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TierComponent(tierModel: TierModel, index: Int, updateTiers: (image: Int, updateIndex: Int) -> Unit) {
+fun TierComponent(
+    tierModel: TierModel,
+    index: Int,
+    updateTiers: (updateIndex: Int, image: Int) -> Unit,
+    openDialog: (dialogIndex: Int) -> Unit,
+) {
 
     LazyRow(
         modifier = Modifier
@@ -31,18 +39,28 @@ fun TierComponent(tierModel: TierModel, index: Int, updateTiers: (image: Int, up
             .background(tierModel.color)
     ) {
         stickyHeader {
-            Text(
-                modifier = Modifier
-                    .height(80.dp)
-                    .width(80.dp)
-                    .wrapContentHeight(align = Alignment.CenterVertically),
-                text = tierModel.name,
-                textAlign = TextAlign.Center,
-                fontWeight = FontWeight.Bold
-            )
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .clickable {
+                    openDialog(index)
+                }
+            ){
+                Text(
+                    modifier = Modifier
+                        .height(80.dp)
+                        .width(80.dp)
+                        .wrapContentHeight(align = Alignment.CenterVertically),
+                    text = tierModel.name,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
+
         items(tierModel.images) {
-            ItemComponent(it, {updateTiers(it, index + 1)})
+            ItemComponent(it){
+                updateTiers(index + 1, it)
+            }
         }
     }
 }
