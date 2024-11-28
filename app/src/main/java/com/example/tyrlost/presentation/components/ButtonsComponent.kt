@@ -11,13 +11,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.tyrlost.ui.theme.TyrlostTheme
 
 
 @Composable
-fun ButtonsComponent() {
+fun AddButtonsComponent(
+    onAddTier: () -> Unit,
+    addImage: () -> Unit
+) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         Row(
@@ -27,26 +28,19 @@ fun ButtonsComponent() {
                 .align(Alignment.BottomCenter)
         ) {
             Button(
-                onClick = {},
+                onClick = onAddTier,
                 modifier = Modifier
                     .padding(PaddingValues(end = 10.dp))
                     .weight(1f)
             ) { Text("Add Tier") }
             Button(
-                onClick = {},
+                onClick = {
+                    addImage()
+                },
                 modifier = Modifier
                     .padding(PaddingValues(end = 10.dp))
                     .weight(1f)
-            ) { Text("Add Item") }
+            ) { Text("Add Image") }
         }
     }
 }
-
-@Preview(showBackground = false)
-@Composable
-private fun TierComponentPreview() {
-    TyrlostTheme {
-        ButtonsComponent()
-    }
-}
-

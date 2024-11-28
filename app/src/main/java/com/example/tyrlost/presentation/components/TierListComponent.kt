@@ -47,6 +47,15 @@ fun TierListComponent(tierListViewModel: TierListViewModel = viewModel()) {
                 )
             }
         }
-        ButtonsComponent()
+
+        AddButtonsComponent(
+            onAddTier = {
+                tierListViewModel.addTier()
+                tierListViewModel.openDialog(tiers.size)
+            },
+            addImage = {
+
+            }
+        )
     }
 }

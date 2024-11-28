@@ -9,11 +9,7 @@ class TierNameFieldViewModel: ViewModel() {
 
     val text: MutableStateFlow<String> = MutableStateFlow("")
 
-    fun updateText(newText: String) {
-        text.update { newText }
-    }
+    fun updateText(newText: String) = text.update { newText }
 
-    fun resetText() {
-        text.update { "" }
-    }
+    fun resetText() = text.update { "" }
 }
