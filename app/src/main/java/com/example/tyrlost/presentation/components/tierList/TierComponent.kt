@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation.components
+package com.example.tyrlost.presentation.components.tierList
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -27,7 +27,9 @@ import com.example.tyrlost.presentation.models.TierModel
 fun TierComponent(
     tierModel: TierModel,
     index: Int,
+    currentImageSelected: Int?,
     updateTiers: (updateIndex: Int, image: Int) -> Unit,
+    selectImage: (image: Int) -> Unit,
     openDialog: (dialogIndex: Int) -> Unit,
 ) {
 
@@ -42,7 +44,10 @@ fun TierComponent(
             Box(modifier = Modifier
                 .fillMaxSize()
                 .clickable {
-                    openDialog(index)
+                    if(currentImageSelected == null) openDialog(index) else {
+                        updateTiers(index, currentImageSelected)
+                        selectImage(currentImageSelected)
+                    }
                 }
             ){
                 Text(
@@ -58,8 +63,12 @@ fun TierComponent(
         }
 
         items(tierModel.images) {
-            ItemComponent(it){
-                updateTiers(index + 1, it)
+            ItemComponent(
+                image = it,
+                isSelected = it == currentImageSelected
+            ){
+                selectImage(it)
+//                updateTiers(index + 1, it)
             }
         }
     }

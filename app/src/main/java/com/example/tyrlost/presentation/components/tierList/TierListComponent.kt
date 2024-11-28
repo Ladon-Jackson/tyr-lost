@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation.components
+package com.example.tyrlost.presentation.components.tierList
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.tyrlost.presentation.TierListViewModel
-import com.example.tyrlost.presentation.components.dialog.TierDialogComponent
+import com.example.tyrlost.presentation.components.TierDialog.TierDialogComponent
 import com.example.tyrlost.presentation.models.TierModel
 
 
@@ -20,13 +20,14 @@ import com.example.tyrlost.presentation.models.TierModel
 fun TierListComponent(tierListViewModel: TierListViewModel = viewModel()) {
 
     val tiers: List<TierModel> by tierListViewModel.tiers.collectAsStateWithLifecycle()
-    val selectedTierIndex: Int? by tierListViewModel.currentTierOpen.collectAsStateWithLifecycle()
+    val currentTierOpen: Int? by tierListViewModel.currentTierOpen.collectAsStateWithLifecycle()
+    val currentImageSelected: Int? by tierListViewModel.currentImageSelected.collectAsStateWithLifecycle()
 
     //TODO hate this '!!' thing find a better way (kotlin equivalent to mapping on an Option)
-    if(selectedTierIndex != null) {
+    if(currentTierOpen != null) {
         TierDialogComponent(
-            index = selectedTierIndex!!,
-            name = tiers[selectedTierIndex!!].name,
+            index = currentTierOpen!!,
+            name = tiers[currentTierOpen!!].name,
             onDismiss = tierListViewModel::closeDialog,
             onDelete = tierListViewModel::removeTier,
             onRename = tierListViewModel::updateTierName
@@ -42,6 +43,8 @@ fun TierListComponent(tierListViewModel: TierListViewModel = viewModel()) {
                 TierComponent(
                     tierModel = tierModel,
                     index = index,
+                    currentImageSelected = currentImageSelected,
+                    selectImage = tierListViewModel::updateImageSelected,
                     updateTiers = tierListViewModel::moveImageToTier,
                     openDialog = tierListViewModel::openDialog
                 )

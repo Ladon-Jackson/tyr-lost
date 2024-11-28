@@ -13,6 +13,14 @@ class TierListViewModel: ViewModel() {
 
     val tiers: MutableStateFlow<List<TierModel>> = MutableStateFlow(testTiers)
     val currentTierOpen: MutableStateFlow<Int?> = MutableStateFlow(null)
+    val currentImageSelected: MutableStateFlow<Int?> = MutableStateFlow(null)
+
+    fun updateImageSelected(updatedImage: Int) = currentImageSelected.getAndUpdate {
+        when {
+            it == updatedImage -> null
+            else -> updatedImage
+        }
+    }
 
     fun removeTier(removedIndex: Int) = tiers.getAndUpdate {
         it.filterIndexed { index, _ ->
@@ -29,7 +37,7 @@ class TierListViewModel: ViewModel() {
         } }
     }
 
-    fun moveImageToTier(to: Int, image: Int) = tiers.getAndUpdate {
+    fun moveImageToTier(updatedTierIndex: Int, image: Int) = tiers.getAndUpdate {
 
         val tiersWithRemovedItem: List<TierModel> = it.map { tier ->
             tier.copy(images = tier.images.filterNot { item -> item == image })
@@ -37,7 +45,7 @@ class TierListViewModel: ViewModel() {
 
         tiersWithRemovedItem.mapIndexed { idx, tier ->
            when {
-               idx == to -> tier.copy(images = tier.images.plus(image))
+               idx == updatedTierIndex -> tier.copy(images = tier.images.plus(image))
                else -> tier
            }
         }

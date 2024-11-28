@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation.components
+package com.example.tyrlost.presentation.components.tierList
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
