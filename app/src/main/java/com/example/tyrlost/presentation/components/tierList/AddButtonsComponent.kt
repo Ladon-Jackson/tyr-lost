@@ -1,5 +1,9 @@
 package com.example.tyrlost.presentation.components.tierList
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -16,9 +20,16 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun AddButtonsComponent(
-    onAddTier: () -> Unit,
-    addImage: () -> Unit
+    addTier: () -> Unit,
+    openDialog: (Int) -> Unit,
+    nextTierIndex: Int,
+    addImages: (List<Uri>) -> Unit
 ) {
+
+    val photoPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickMultipleVisualMedia(),
+        onResult = {images -> addImages(images)}
+    )
 
     Box(modifier = Modifier.fillMaxSize()) {
         Row(
@@ -28,14 +39,19 @@ fun AddButtonsComponent(
                 .align(Alignment.BottomCenter)
         ) {
             Button(
-                onClick = onAddTier,
+                onClick = {
+                    addTier()
+                    openDialog(nextTierIndex)
+                },
                 modifier = Modifier
                     .padding(PaddingValues(end = 10.dp))
                     .weight(1f)
             ) { Text("Add Tier") }
             Button(
                 onClick = {
-                    addImage()
+                    photoPickerLauncher.launch(
+                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                    )
                 },
                 modifier = Modifier
                     .padding(PaddingValues(end = 10.dp))

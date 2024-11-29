@@ -2,14 +2,16 @@ package com.example.tyrlost.presentation
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
 
 class TierNameFieldViewModel: ViewModel() {
 
-    val text: MutableStateFlow<String> = MutableStateFlow("")
+    val _text: MutableStateFlow<String> = MutableStateFlow("")
+    val text: StateFlow<String> = MutableStateFlow("")
 
-    fun updateText(newText: String) = text.update { newText }
+    fun updateText(newText: String) = _text.update { newText }
 
-    fun resetText() = text.update { "" }
+    fun resetText() = _text.update { "" }
 }
