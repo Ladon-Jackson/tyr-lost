@@ -2,13 +2,9 @@ package com.example.tyrlost.presentation.components.tierList
 
 import android.net.Uri
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,6 +14,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.tyrlost.presentation.TierListViewModel
 import com.example.tyrlost.presentation.components.TierDialog.TierDialogComponent
+import com.example.tyrlost.presentation.components.controls.ControlsComponent
 import com.example.tyrlost.presentation.models.TierModel
 
 
@@ -25,20 +22,21 @@ import com.example.tyrlost.presentation.models.TierModel
 fun TierListComponent(tierListViewModel: TierListViewModel = viewModel()) {
 
     val tiers: List<TierModel> by tierListViewModel.tiers.collectAsStateWithLifecycle()
-    val untieredImages: List<Uri> by tierListViewModel.untieredImages.collectAsStateWithLifecycle()
+    val unlistedImages: List<Uri> by tierListViewModel.unlistedImages.collectAsStateWithLifecycle()
     val currentTierOpen: Int? by tierListViewModel.currentTierOpen.collectAsStateWithLifecycle()
-    val currentImageSelected: Int? by tierListViewModel.currentImageSelected.collectAsStateWithLifecycle()
+    val currentImageSelected: Uri? by tierListViewModel.currentImageSelected.collectAsStateWithLifecycle()
 
     //TODO hate this '!!' thing find a better way (kotlin equivalent to mapping on an Option)
     if(currentTierOpen != null) {
         TierDialogComponent(
             index = currentTierOpen!!,
             name = tiers[currentTierOpen!!].name,
-            onDismiss = tierListViewModel::closeDialog,
-            onDelete = tierListViewModel::removeTier,
-            onRename = tierListViewModel::updateTierName
+            onDismiss = tierListViewModel::closeTierDialog,
+            onRename = tierListViewModel::updateTierName,
+            onDelete = tierListViewModel::removeTier
         )
     }
+
     Column {
         LazyColumn(
             modifier = Modifier
@@ -50,30 +48,21 @@ fun TierListComponent(tierListViewModel: TierListViewModel = viewModel()) {
                     tierModel = tierModel,
                     index = index,
                     currentImageSelected = currentImageSelected,
-                    selectImage = tierListViewModel::updateImageSelected,
-                    updateTiers = tierListViewModel::moveImageToTier,
-                    openDialog = tierListViewModel::openDialog
+                    updateImageSelected = tierListViewModel::updateImageSelected,
+                    openTierDialog = tierListViewModel::openTierDialog,
+                    moveImageToTier = tierListViewModel::moveImageToTier
                 )
             }
         }
 
-        LazyRow(modifier = Modifier) {
-            items(untieredImages) {
-                NewImageComponent(
-                    image = it,
-                    isSelected = false,// TODO update to something like `isSelected = it == currentImageSelected,`
-                    onClick = {
-//                        tierListViewModel.addImage(it)
-                    }
-                )
-            }
-        }
-
-        AddButtonsComponent(
+        ControlsComponent(
             nextTierIndex = tiers.size,
+            unlistedImages = unlistedImages,
+            currentImageSelected = currentImageSelected,
+            updateImageSelected = tierListViewModel::updateImageSelected,
             addTier = tierListViewModel::addTier,
-            openDialog = tierListViewModel::openDialog,
-            addImages = tierListViewModel::addImages
+            openTierDialog = tierListViewModel::openTierDialog,
+            addImages = tierListViewModel::addNewImages
         )
     }
 }

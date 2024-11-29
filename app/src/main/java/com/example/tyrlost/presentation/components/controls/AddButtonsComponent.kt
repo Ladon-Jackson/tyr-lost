@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation.components.tierList
+package com.example.tyrlost.presentation.components.controls
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -13,16 +13,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 
 @Composable
 fun AddButtonsComponent(
+    nextTierIndex: Int,
     addTier: () -> Unit,
     openDialog: (Int) -> Unit,
-    nextTierIndex: Int,
     addImages: (List<Uri>) -> Unit
 ) {
 
@@ -36,7 +35,7 @@ fun AddButtonsComponent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(PaddingValues(start = 10.dp))
-                .align(Alignment.BottomCenter)
+
         ) {
             Button(
                 onClick = {

@@ -1,6 +1,6 @@
 package com.example.tyrlost.presentation.components.tierList
 
-import androidx.compose.foundation.ExperimentalFoundationApi
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.tyrlost.presentation.components.ImageComponent
 import com.example.tyrlost.presentation.models.TierModel
 
 
@@ -18,10 +19,10 @@ import com.example.tyrlost.presentation.models.TierModel
 fun TierComponent(
     tierModel: TierModel,
     index: Int,
-    currentImageSelected: Int?,
-    updateTiers: (updateIndex: Int, image: Int) -> Unit,
-    selectImage: (image: Int) -> Unit,
-    openDialog: (dialogIndex: Int) -> Unit,
+    currentImageSelected: Uri?,
+    updateImageSelected: (image: Uri) -> Unit,
+    openTierDialog: (dialogIndex: Int) -> Unit,
+    moveImageToTier: (updateIndex: Int, image: Uri) -> Unit
 ) {
 
     Row(
@@ -35,19 +36,19 @@ fun TierComponent(
             name = tierModel.name,
             index = index,
             currentImageSelected = currentImageSelected,
-            updateTiers = updateTiers,
-            selectImage = selectImage,
-            openDialog = openDialog
+            moveImageToTier = moveImageToTier,
+            selectImage = updateImageSelected,
+            openTierDialog = openTierDialog
         )
 
-        LazyRow() {
+        LazyRow {
 
             items(tierModel.images) {
                 ImageComponent(
                     image = it,
                     isSelected = it == currentImageSelected
                 ) {
-                    selectImage(it)
+                    updateImageSelected(it)
                 }
             }
         }

@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.update
 class TierNameFieldViewModel: ViewModel() {
 
     val _text: MutableStateFlow<String> = MutableStateFlow("")
-    val text: StateFlow<String> = MutableStateFlow("")
+    val text: StateFlow<String> = _text
 
     fun updateText(newText: String) = _text.update { newText }
 
