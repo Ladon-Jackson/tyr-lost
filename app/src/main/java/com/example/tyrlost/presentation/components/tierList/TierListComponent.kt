@@ -19,7 +19,7 @@ import com.example.tyrlost.presentation.models.TierModel
 
 
 @Composable
-fun TierListComponent(tierListViewModel: TierListViewModel = viewModel()) {
+fun TierListComponent(modifier: Modifier = Modifier, tierListViewModel: TierListViewModel = viewModel()) {
 
     val tiers: List<TierModel> by tierListViewModel.tiers.collectAsStateWithLifecycle()
     val unlistedImages: List<Uri> by tierListViewModel.unlistedImages.collectAsStateWithLifecycle()
@@ -37,7 +37,7 @@ fun TierListComponent(tierListViewModel: TierListViewModel = viewModel()) {
         )
     }
 
-    Column {
+    Column(modifier = modifier) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
@@ -62,7 +62,8 @@ fun TierListComponent(tierListViewModel: TierListViewModel = viewModel()) {
             updateImageSelected = tierListViewModel::updateImageSelected,
             addTier = tierListViewModel::addTier,
             openTierDialog = tierListViewModel::openTierDialog,
-            addImages = tierListViewModel::addNewImages
+            addImages = tierListViewModel::addNewImages,
+            moveImageToUnlisted = tierListViewModel::moveImageToUnlisted
         )
     }
 }

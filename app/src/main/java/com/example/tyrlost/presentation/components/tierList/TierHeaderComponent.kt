@@ -16,7 +16,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TierHeaderComponent(
     name: String,
@@ -26,16 +25,16 @@ fun TierHeaderComponent(
     selectImage: (image: Uri) -> Unit,
     openTierDialog: (dialogIndex: Int) -> Unit,
 ) {
-
-    Box(modifier = Modifier
-        .width(80.dp)
-        .clickable {
-            if(currentImageSelected == null) openTierDialog(index) else {
-                moveImageToTier(index, currentImageSelected)
-                selectImage(currentImageSelected)
+    Box(
+        modifier = Modifier
+            .width(80.dp)
+            .clickable {
+                if(currentImageSelected == null) openTierDialog(index) else {
+                    moveImageToTier(index, currentImageSelected)
+                    selectImage(currentImageSelected)
+                }
             }
-        }
-    ){
+    ) {
         Text(
             modifier = Modifier
                 .height(80.dp)

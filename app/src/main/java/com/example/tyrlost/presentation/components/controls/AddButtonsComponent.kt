@@ -30,7 +30,7 @@ fun AddButtonsComponent(
         onResult = {images -> addImages(images)}
     )
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()

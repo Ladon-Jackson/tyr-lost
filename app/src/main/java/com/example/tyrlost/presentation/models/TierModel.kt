@@ -11,7 +11,7 @@ import com.example.tyrlost.ui.theme.yellowTier
 
 data class TierModel(val name: String, val color: Color, val images: List<Uri> = emptyList(), val newImages: List<Uri> = emptyList())
 
-val testTiers = listOf(
+val defaultTiers = listOf(
     TierModel("S", redTier),
     TierModel("A", orangeTier),
     TierModel("B", yellowTier),

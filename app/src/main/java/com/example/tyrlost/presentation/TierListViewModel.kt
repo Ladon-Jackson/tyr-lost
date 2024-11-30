@@ -3,7 +3,7 @@ package com.example.tyrlost.presentation
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.example.tyrlost.presentation.models.TierModel
-import com.example.tyrlost.presentation.models.testTiers
+import com.example.tyrlost.presentation.models.defaultTiers
 import com.example.tyrlost.ui.theme.redTier
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,10 +13,10 @@ import kotlinx.coroutines.flow.update
 
 class TierListViewModel: ViewModel() {
 
-    val _currentTierOpen: MutableStateFlow<Int?> = MutableStateFlow(null)
-    val _tiers: MutableStateFlow<List<TierModel>> = MutableStateFlow(testTiers)
-    val _unlistedImages: MutableStateFlow<List<Uri>> = MutableStateFlow(emptyList())
-    val _currentImageSelected: MutableStateFlow<Uri?> = MutableStateFlow(null)
+    private val _currentTierOpen: MutableStateFlow<Int?> = MutableStateFlow(null)
+    private val _unlistedImages: MutableStateFlow<List<Uri>> = MutableStateFlow(emptyList())
+    private val _currentImageSelected: MutableStateFlow<Uri?> = MutableStateFlow(null)
+    private val _tiers: MutableStateFlow<List<TierModel>> = MutableStateFlow(defaultTiers)
 
     val currentTierOpen: StateFlow<Int?> = _currentTierOpen
     val tiers: StateFlow<List<TierModel>> = _tiers
@@ -48,7 +48,7 @@ class TierListViewModel: ViewModel() {
         } }
     }
 
-    fun moveImageToUnlisted(updatedTierIndex: Int?, image: Uri) {
+    fun moveImageToUnlisted(image: Uri) {
         _tiers.getAndUpdate { removeImageFromTierList(image, it) }
         _unlistedImages.getAndUpdate { addImageToList(
             image = image,

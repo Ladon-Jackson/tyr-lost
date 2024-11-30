@@ -2,9 +2,11 @@ package com.example.tyrlost.presentation.components.controls
 
 import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -22,14 +24,26 @@ fun ControlsComponent(
     updateImageSelected: (Uri) -> Unit,
     addTier: () -> Unit,
     openTierDialog: (Int) -> Unit,
-    addImages: (List<Uri>) -> Unit
+    addImages: (List<Uri>) -> Unit,
+    moveImageToUnlisted: (Uri) -> Unit
 ) {
     Column {
+        AddButtonsComponent(
+            nextTierIndex = nextTierIndex,
+            addTier = addTier,
+            openDialog = openTierDialog,
+            addImages = addImages
+        )
+
         LazyRow(
             modifier = Modifier
+                .padding(5.dp)
                 .height(80.dp)
                 .fillMaxWidth()
-                .background(Color.Gray)
+                .background(Color.White)
+                .clickable {
+                    if (currentImageSelected != null) moveImageToUnlisted(currentImageSelected)
+                }
         ) {
             items(unlistedImages) {
                 ImageComponent(
@@ -41,12 +55,5 @@ fun ControlsComponent(
                 )
             }
         }
-
-        AddButtonsComponent(
-            nextTierIndex = nextTierIndex,
-            addTier = addTier,
-            openDialog = openTierDialog,
-            addImages = addImages
-        )
     }
 }
