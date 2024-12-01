@@ -1,7 +1,6 @@
 package com.example.tyrlost.presentation.components.tierList
 
 import android.net.Uri
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
@@ -22,16 +21,16 @@ fun TierHeaderComponent(
     index: Int,
     currentImageSelected: Uri?,
     moveImageToTier: (updateIndex: Int, image: Uri) -> Unit,
-    selectImage: (image: Uri) -> Unit,
+    updateImageSelected: (image: Uri) -> Unit,
     openTierDialog: (dialogIndex: Int) -> Unit,
 ) {
     Box(
         modifier = Modifier
             .width(80.dp)
             .clickable {
-                if(currentImageSelected == null) openTierDialog(index) else {
+                if (currentImageSelected == null) openTierDialog(index) else {
                     moveImageToTier(index, currentImageSelected)
-                    selectImage(currentImageSelected)
+                    updateImageSelected(currentImageSelected)
                 }
             }
     ) {

@@ -12,29 +12,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.tyrlost.presentation.TierListViewModel
 import com.example.tyrlost.presentation.components.TierDialog.TierDialogComponent
 import com.example.tyrlost.presentation.components.controls.ControlsComponent
 import com.example.tyrlost.presentation.models.TierModel
+import com.example.tyrlost.presentation.viewModels.CurrentSelectionViewModel
+import com.example.tyrlost.presentation.viewModels.TierListViewModel
 
 
 @Composable
 fun TierListComponent(
     modifier: Modifier = Modifier,
     tierListViewModel: TierListViewModel = viewModel(),
+    currentSelectionViewModel: CurrentSelectionViewModel = viewModel(),
 ) {
 
     val tiers: List<TierModel> by tierListViewModel.tiers.collectAsStateWithLifecycle()
     val unlistedImages: List<Uri> by tierListViewModel.unlistedImages.collectAsStateWithLifecycle()
-    val currentTierOpen: Int? by tierListViewModel.currentTierOpen.collectAsStateWithLifecycle()
-    val currentImageSelected: Uri? by tierListViewModel.currentImageSelected.collectAsStateWithLifecycle()
+    val currentTierOpen: Int? by currentSelectionViewModel.currentTierOpen.collectAsStateWithLifecycle()
+    val currentImageSelected: Uri? by currentSelectionViewModel.currentImageSelected.collectAsStateWithLifecycle()
 
     //TODO hate this '!!' thing find a better way (kotlin equivalent to mapping on an Option)
     if (currentTierOpen != null) {
         TierDialogComponent(
             index = currentTierOpen!!,
             name = tiers[currentTierOpen!!].name,
-            onDismiss = tierListViewModel::closeTierDialog,
+            onDismiss = currentSelectionViewModel::closeTierDialog,
             onRename = tierListViewModel::updateTierName,
             onDelete = tierListViewModel::removeTier
         )
@@ -51,8 +53,8 @@ fun TierListComponent(
                     tierModel = tierModel,
                     index = index,
                     currentImageSelected = currentImageSelected,
-                    updateImageSelected = tierListViewModel::updateImageSelected,
-                    openTierDialog = tierListViewModel::openTierDialog,
+                    updateImageSelected = currentSelectionViewModel::updateImageSelected,
+                    openTierDialog = currentSelectionViewModel::openTierDialog,
                     moveImageToTier = tierListViewModel::moveImageToTier,
                     moveImageToDestinationImage = tierListViewModel::moveImageToDestinationImageTiers
                 )
@@ -63,9 +65,9 @@ fun TierListComponent(
             nextTierIndex = tiers.size,
             unlistedImages = unlistedImages,
             currentImageSelected = currentImageSelected,
-            updateImageSelected = tierListViewModel::updateImageSelected,
+            updateImageSelected = currentSelectionViewModel::updateImageSelected,
             addTier = tierListViewModel::addTier,
-            openTierDialog = tierListViewModel::openTierDialog,
+            openTierDialog = currentSelectionViewModel::openTierDialog,
             addImages = tierListViewModel::addNewImages,
             moveImageToUnlisted = tierListViewModel::moveImageToUnlisted,
             moveImageToDestinationImage = tierListViewModel::moveImageToDestinationImageTiers

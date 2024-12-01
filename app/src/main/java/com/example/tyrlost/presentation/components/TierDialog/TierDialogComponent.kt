@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.tyrlost.presentation.TierNameFieldViewModel
+import com.example.tyrlost.presentation.viewModels.TierNameFieldViewModel
 import com.example.tyrlost.ui.theme.redTier
 
 
@@ -29,7 +29,7 @@ fun TierDialogComponent(
     onDismiss: () -> Unit,
     onRename: (Int, String) -> Unit,
     onDelete: (Int) -> Unit,
-    tierNameFieldViewModel: TierNameFieldViewModel = viewModel()
+    tierNameFieldViewModel: TierNameFieldViewModel = viewModel(),
 ) {
 
     val text: String by tierNameFieldViewModel.text.collectAsStateWithLifecycle()

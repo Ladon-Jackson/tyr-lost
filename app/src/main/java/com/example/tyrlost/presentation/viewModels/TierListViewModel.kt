@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation
+package com.example.tyrlost.presentation.viewModels
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
@@ -12,27 +12,14 @@ import kotlinx.coroutines.flow.update
 
 class TierListViewModel : ViewModel() {
 
-    private val _currentTierOpen: MutableStateFlow<Int?> = MutableStateFlow(null)
     private val _unlistedImages: MutableStateFlow<List<Uri>> = MutableStateFlow(emptyList())
-    private val _currentImageSelected: MutableStateFlow<Uri?> = MutableStateFlow(null)
     private val _tiers: MutableStateFlow<List<TierModel>> = MutableStateFlow(defaultTiers)
 
-    val currentTierOpen: StateFlow<Int?> = _currentTierOpen
     val tiers: StateFlow<List<TierModel>> = _tiers
     val unlistedImages: StateFlow<List<Uri>> = _unlistedImages
-    val currentImageSelected: StateFlow<Uri?> = _currentImageSelected
-
-    fun openTierDialog(openTierIndex: Int) = _currentTierOpen.update { openTierIndex }
-    fun closeTierDialog() = _currentTierOpen.update { null }
 
     fun addNewImages(newImages: List<Uri>) =
         _unlistedImages.update { newImages + it }
-
-    fun updateImageSelected(updatedImage: Uri) =
-        _currentImageSelected.update {
-            if (it != null) null
-            else updatedImage
-        }
 
     fun removeTier(removedIndex: Int) = _tiers.update {
         it.filterIndexed { index, _ -> removedIndex != index }
@@ -52,7 +39,6 @@ class TierListViewModel : ViewModel() {
         _unlistedImages.update { addImage(image, removeImageList(image, it)) }
     }
 
-
     fun moveImageToTier(updatedTierIndex: Int, image: Uri) {
         _unlistedImages.update { removeImageList(image, it) }
         _tiers.update { addImage(image, removeImageTiers(image, it), updatedTierIndex) }
@@ -66,7 +52,17 @@ class TierListViewModel : ViewModel() {
                 images = it,
             )
         }
-        _tiers.update { moveImageToDestinationImageTiers(movingImage, destinationImage, it) }
+        _tiers.update {
+            it.map { tier ->
+                tier.copy(
+                    images = moveImageToDestinationImageList(
+                        movingImage = movingImage,
+                        destinationImage = destinationImage,
+                        images = tier.images
+                    )
+                )
+            }
+        }
     }
 
     private fun addImage(
@@ -91,21 +87,6 @@ class TierListViewModel : ViewModel() {
 
     private fun removeImageList(image: Uri, list: List<Uri>): List<Uri> =
         list.filterNot { item -> item == image }
-
-
-    private fun moveImageToDestinationImageTiers(
-        movingImage: Uri,
-        destinationImage: Uri,
-        tiers: List<TierModel>,
-    ): List<TierModel> = tiers.mapIndexed() { idx, thing ->
-        thing.copy(
-            images = moveImageToDestinationImageList(
-                movingImage = movingImage,
-                destinationImage = destinationImage,
-                images = thing.images
-            )
-        )
-    }
 
     private fun moveImageToDestinationImageList(
         movingImage: Uri,

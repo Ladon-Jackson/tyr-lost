@@ -2,6 +2,7 @@ package com.example.tyrlost.presentation.components.tierList
 
 import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -32,13 +33,19 @@ fun TierComponent(
             .fillMaxWidth()
             .padding(1.dp)
             .background(tierModel.color)
+            .clickable {
+                if (currentImageSelected != null) {
+                    moveImageToTier(index, currentImageSelected)
+                    updateImageSelected(currentImageSelected)
+                }
+            }
     ) {
         TierHeaderComponent(
             name = tierModel.name,
             index = index,
             currentImageSelected = currentImageSelected,
             moveImageToTier = moveImageToTier,
-            selectImage = updateImageSelected,
+            updateImageSelected = updateImageSelected,
             openTierDialog = openTierDialog
         )
 
