@@ -7,11 +7,10 @@ import com.example.tyrlost.presentation.models.defaultTiers
 import com.example.tyrlost.ui.theme.redTier
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.update
 
 
-class TierListViewModel: ViewModel() {
+class TierListViewModel : ViewModel() {
 
     private val _currentTierOpen: MutableStateFlow<Int?> = MutableStateFlow(null)
     private val _unlistedImages: MutableStateFlow<List<Uri>> = MutableStateFlow(emptyList())
@@ -27,58 +26,104 @@ class TierListViewModel: ViewModel() {
     fun closeTierDialog() = _currentTierOpen.update { null }
 
     fun addNewImages(newImages: List<Uri>) =
-        _unlistedImages.getAndUpdate { newImages + it }
+        _unlistedImages.update { newImages + it }
 
     fun updateImageSelected(updatedImage: Uri) =
-        _currentImageSelected.getAndUpdate { when {
-            it == updatedImage -> null
-            else -> updatedImage
-        } }
+        _currentImageSelected.update {
+            if (it != null) null
+            else updatedImage
+        }
 
-    fun removeTier(removedIndex: Int) = _tiers.getAndUpdate {
+    fun removeTier(removedIndex: Int) = _tiers.update {
         it.filterIndexed { index, _ -> removedIndex != index }
     }
 
-    fun addTier() = _tiers.getAndUpdate { it.plus(TierModel("", redTier)) }
+    fun addTier() = _tiers.update { it.plus(TierModel("", redTier)) }
 
-    fun updateTierName(changeIndex: Int, newName: String) = _tiers.getAndUpdate {
-        it.mapIndexed { idx, tier -> when {
-            idx == changeIndex -> tier.copy(name = newName)
-            else -> tier
-        } }
+    fun updateTierName(changeIndex: Int, newName: String) = _tiers.update {
+        it.mapIndexed { idx, tier ->
+            if (idx == changeIndex) tier.copy(name = newName)
+            else tier
+        }
     }
 
     fun moveImageToUnlisted(image: Uri) {
-        _tiers.getAndUpdate { removeImageFromTierList(image, it) }
-        _unlistedImages.getAndUpdate { addImageToList(
-            image = image,
-            images = removeImageFromList(image, it)
-        ) }
+        _tiers.update { removeImageTiers(image, it) }
+        _unlistedImages.update { addImage(image, removeImageList(image, it)) }
     }
+
 
     fun moveImageToTier(updatedTierIndex: Int, image: Uri) {
-        _unlistedImages.getAndUpdate { removeImageFromList(image, it) }
-        _tiers.getAndUpdate { addImageToTierList(
-            image = image,
-            tierList = removeImageFromTierList(image, it),
-            index = updatedTierIndex
-        ) }
+        _unlistedImages.update { removeImageList(image, it) }
+        _tiers.update { addImage(image, removeImageTiers(image, it), updatedTierIndex) }
     }
 
-    private fun addImageToTierList(image: Uri, tierList: List<TierModel>, index: Int): List<TierModel> =
-        tierList.mapIndexed { currentIndex, tierModel -> when {
-            index == currentIndex ->
-                tierModel.copy(images = addImageToList(image, tierModel.images))
-            else -> tierModel
-        } }
+    fun moveImageToDestinationImageTiers(movingImage: Uri, destinationImage: Uri) {
+        _unlistedImages.update {
+            moveImageToDestinationImageList(
+                movingImage = movingImage,
+                destinationImage = destinationImage,
+                images = it,
+            )
+        }
+        _tiers.update { moveImageToDestinationImageTiers(movingImage, destinationImage, it) }
+    }
 
-    private fun addImageToList(image: Uri, images: List<Uri>): List<Uri> =
+    private fun addImage(
+        image: Uri,
+        tierList: List<TierModel>,
+        tierIndex: Int,
+    ): List<TierModel> =
+        tierList.mapIndexed { currentIndex, tierModel ->
+            when {
+                tierIndex == currentIndex ->
+                    tierModel.copy(images = addImage(image, tierModel.images))
+
+                else -> tierModel
+            }
+        }
+
+    private fun addImage(image: Uri, images: List<Uri>): List<Uri> =
         listOf(image) + images
 
-    private fun removeImageFromTierList(image: Uri, tierlist: List<TierModel>): List<TierModel> =
-        tierlist.map { it.copy(images = removeImageFromList(image, it.images))}
+    private fun removeImageTiers(image: Uri, tierList: List<TierModel>): List<TierModel> =
+        tierList.map { it.copy(images = removeImageList(image, it.images)) }
 
-    private fun removeImageFromList(image: Uri, list: List<Uri>): List<Uri> =
+    private fun removeImageList(image: Uri, list: List<Uri>): List<Uri> =
         list.filterNot { item -> item == image }
 
+
+    private fun moveImageToDestinationImageTiers(
+        movingImage: Uri,
+        destinationImage: Uri,
+        tiers: List<TierModel>,
+    ): List<TierModel> = tiers.mapIndexed() { idx, thing ->
+        thing.copy(
+            images = moveImageToDestinationImageList(
+                movingImage = movingImage,
+                destinationImage = destinationImage,
+                images = thing.images
+            )
+        )
+    }
+
+    private fun moveImageToDestinationImageList(
+        movingImage: Uri,
+        destinationImage: Uri,
+        images: List<Uri>,
+    ): List<Uri> {
+
+        val imageListWithMovingImageRemoved = removeImageList(movingImage, images)
+        val destinationImageIndex = imageListWithMovingImageRemoved.indexOf(destinationImage)
+
+        if (destinationImageIndex < 0) return imageListWithMovingImageRemoved
+
+        val imagesBeforeTarget = imageListWithMovingImageRemoved
+            .filterIndexed { index, _ -> index <= destinationImageIndex }
+
+        val imagesAfterTarget = imageListWithMovingImageRemoved
+            .filterIndexed { index, _ -> index > destinationImageIndex }
+
+        return imagesBeforeTarget + listOf(movingImage) + imagesAfterTarget
+    }
 }

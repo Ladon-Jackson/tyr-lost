@@ -19,7 +19,10 @@ import com.example.tyrlost.presentation.models.TierModel
 
 
 @Composable
-fun TierListComponent(modifier: Modifier = Modifier, tierListViewModel: TierListViewModel = viewModel()) {
+fun TierListComponent(
+    modifier: Modifier = Modifier,
+    tierListViewModel: TierListViewModel = viewModel(),
+) {
 
     val tiers: List<TierModel> by tierListViewModel.tiers.collectAsStateWithLifecycle()
     val unlistedImages: List<Uri> by tierListViewModel.unlistedImages.collectAsStateWithLifecycle()
@@ -27,7 +30,7 @@ fun TierListComponent(modifier: Modifier = Modifier, tierListViewModel: TierList
     val currentImageSelected: Uri? by tierListViewModel.currentImageSelected.collectAsStateWithLifecycle()
 
     //TODO hate this '!!' thing find a better way (kotlin equivalent to mapping on an Option)
-    if(currentTierOpen != null) {
+    if (currentTierOpen != null) {
         TierDialogComponent(
             index = currentTierOpen!!,
             name = tiers[currentTierOpen!!].name,
@@ -50,7 +53,8 @@ fun TierListComponent(modifier: Modifier = Modifier, tierListViewModel: TierList
                     currentImageSelected = currentImageSelected,
                     updateImageSelected = tierListViewModel::updateImageSelected,
                     openTierDialog = tierListViewModel::openTierDialog,
-                    moveImageToTier = tierListViewModel::moveImageToTier
+                    moveImageToTier = tierListViewModel::moveImageToTier,
+                    moveImageToDestinationImage = tierListViewModel::moveImageToDestinationImageTiers
                 )
             }
         }
@@ -63,7 +67,8 @@ fun TierListComponent(modifier: Modifier = Modifier, tierListViewModel: TierList
             addTier = tierListViewModel::addTier,
             openTierDialog = tierListViewModel::openTierDialog,
             addImages = tierListViewModel::addNewImages,
-            moveImageToUnlisted = tierListViewModel::moveImageToUnlisted
+            moveImageToUnlisted = tierListViewModel::moveImageToUnlisted,
+            moveImageToDestinationImage = tierListViewModel::moveImageToDestinationImageTiers
         )
     }
 }

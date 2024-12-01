@@ -22,7 +22,8 @@ fun TierComponent(
     currentImageSelected: Uri?,
     updateImageSelected: (image: Uri) -> Unit,
     openTierDialog: (dialogIndex: Int) -> Unit,
-    moveImageToTier: (updateIndex: Int, image: Uri) -> Unit
+    moveImageToTier: (updateIndex: Int, image: Uri) -> Unit,
+    moveImageToDestinationImage: (Uri, Uri) -> Unit,
 ) {
 
     Row(
@@ -48,6 +49,9 @@ fun TierComponent(
                     image = it,
                     isSelected = it == currentImageSelected
                 ) {
+                    if (!(currentImageSelected == null || currentImageSelected == it)) {
+                        moveImageToDestinationImage(currentImageSelected, it)
+                    }
                     updateImageSelected(it)
                 }
             }
