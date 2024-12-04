@@ -12,9 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.tyrlost.presentation.components.tierDialog.TierDialogComponent
 import com.example.tyrlost.presentation.components.controls.ControlsComponent
-import com.example.tyrlost.presentation.models.TierModel
+import com.example.tyrlost.presentation.components.tierDialog.TierDialogComponent
+import com.example.tyrlost.presentation.models.TierListModel
 import com.example.tyrlost.presentation.viewModels.CurrentSelectionViewModel
 import com.example.tyrlost.presentation.viewModels.TierListViewModel
 
@@ -27,15 +27,14 @@ fun TierListComponent(
     currentSelectionViewModel: CurrentSelectionViewModel = viewModel(),
 ) {
 
-    val tiers: List<TierModel> by tierListViewModel.tiers.collectAsStateWithLifecycle()
-    val unlistedImages: List<Uri> by tierListViewModel.unlistedImages.collectAsStateWithLifecycle()
+    val tierList: TierListModel by tierListViewModel.tierList.collectAsStateWithLifecycle()
     val currentTierOpen: Int? by currentSelectionViewModel.currentTierOpen.collectAsStateWithLifecycle()
     val currentImageSelected: Uri? by currentSelectionViewModel.currentImageSelected.collectAsStateWithLifecycle()
 
     currentTierOpen?.let { index ->
         TierDialogComponent(
             index = index,
-            name = tiers[index].name,
+            name = tierList.tiers[index].name,
             onDismiss = currentSelectionViewModel::closeTierDialog,
             onRename = tierListViewModel::updateTierName,
             onDelete = tierListViewModel::removeTier
@@ -48,7 +47,7 @@ fun TierListComponent(
                 .fillMaxWidth()
                 .padding(10.dp)
         ) {
-            itemsIndexed(tiers) { index, tierModel ->
+            itemsIndexed(tierList.tiers) { index, tierModel ->
                 TierComponent(
                     tierModel = tierModel,
                     index = index,
@@ -62,8 +61,8 @@ fun TierListComponent(
         }
 
         ControlsComponent(
-            nextTierIndex = tiers.size,
-            unlistedImages = unlistedImages,
+            nextTierIndex = tierList.tiers.size,
+            unlistedImages = tierList.unlistedImages,
             currentImageSelected = currentImageSelected,
             updateImageSelected = currentSelectionViewModel::updateImageSelected,
             addTier = tierListViewModel::addTier,

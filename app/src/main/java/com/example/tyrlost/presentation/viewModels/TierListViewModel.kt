@@ -2,8 +2,9 @@ package com.example.tyrlost.presentation.viewModels
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
+import com.example.tyrlost.presentation.models.TierListModel
 import com.example.tyrlost.presentation.models.TierModel
-import com.example.tyrlost.presentation.models.defaultTiers
+import com.example.tyrlost.presentation.models.defaultTierList
 import com.example.tyrlost.ui.theme.redTier
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,48 +13,47 @@ import kotlinx.coroutines.flow.update
 
 class TierListViewModel : ViewModel() {
 
-    private val _unlistedImages: MutableStateFlow<List<Uri>> = MutableStateFlow(emptyList())
-    private val _tiers: MutableStateFlow<List<TierModel>> = MutableStateFlow(defaultTiers)
+    private val _tierList: MutableStateFlow<TierListModel> = MutableStateFlow(defaultTierList)
 
-    val tiers: StateFlow<List<TierModel>> = _tiers
-    val unlistedImages: StateFlow<List<Uri>> = _unlistedImages
+    val tierList: StateFlow<TierListModel> = _tierList
 
-    fun addNewImages(newImages: List<Uri>) =
-        _unlistedImages.update { newImages + it }
+    fun addNewImages(newImages: List<Uri>) = _tierList.update { it.copy(
+        unlistedImages = newImages + it.unlistedImages
+    ) }
 
-    fun removeTier(removedIndex: Int) = _tiers.update {
-        it.filterIndexed { index, _ -> removedIndex != index }
-    }
+    fun removeTier(removedIndex: Int) = _tierList.update { it.copy(
+        tiers = it.tiers.filterIndexed { index, _ -> removedIndex != index }
+    ) }
 
-    fun addTier() = _tiers.update { it.plus(TierModel("", redTier)) }
+    fun addTier() = _tierList.update { it.copy(
+        tiers = it.tiers.plus(TierModel("", redTier))
+    )}
 
-    fun updateTierName(changeIndex: Int, newName: String) = _tiers.update {
-        it.mapIndexed { idx, tier ->
+    fun updateTierName(changeIndex: Int, newName: String) = _tierList.update { it.copy(
+        tiers = it.tiers.mapIndexed { idx, tier ->
             if (idx == changeIndex) tier.copy(name = newName)
             else tier
         }
-    }
+    ) }
 
-    fun moveImageToUnlisted(image: Uri) {
-        _tiers.update { removeImageTiers(image, it) }
-        _unlistedImages.update { addImage(image, removeImageList(image, it)) }
-    }
+    fun moveImageToUnlisted(image: Uri) = _tierList.update { it.copy(
+        tiers = removeImageTiers(image, it.tiers),
+        unlistedImages = addImage(image, removeImageList(image, it.unlistedImages))
+    ) }
 
-    fun moveImageToTier(updatedTierIndex: Int, image: Uri) {
-        _unlistedImages.update { removeImageList(image, it) }
-        _tiers.update { addImage(image, removeImageTiers(image, it), updatedTierIndex) }
-    }
+    fun moveImageToTier(updatedTierIndex: Int, image: Uri) = _tierList.update { it.copy(
+        unlistedImages = removeImageList(image, it.unlistedImages),
+        tiers = addImage(image, removeImageTiers(image, it.tiers), updatedTierIndex)
+    ) }
 
     fun moveImageToDestinationImageTiers(movingImage: Uri, destinationImage: Uri) {
-        _unlistedImages.update {
-            moveImageToDestinationImageList(
+        _tierList.update { it.copy(
+            unlistedImages = moveImageToDestinationImageList(
                 movingImage = movingImage,
                 destinationImage = destinationImage,
-                images = it,
-            )
-        }
-        _tiers.update {
-            it.map { tier ->
+                images = it.unlistedImages,
+            ),
+            tiers = it.tiers.map { tier ->
                 tier.copy(
                     images = moveImageToDestinationImageList(
                         movingImage = movingImage,
@@ -62,7 +62,7 @@ class TierListViewModel : ViewModel() {
                     )
                 )
             }
-        }
+        ) }
     }
 
     private fun addImage(
