@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation.components.TierDialog
+package com.example.tyrlost.presentation.components.tierDialog
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues

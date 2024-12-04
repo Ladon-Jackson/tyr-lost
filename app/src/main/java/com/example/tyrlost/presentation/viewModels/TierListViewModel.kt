@@ -95,16 +95,32 @@ class TierListViewModel : ViewModel() {
     ): List<Uri> {
 
         val imageListWithMovingImageRemoved = removeImageList(movingImage, images)
-        val destinationImageIndex = imageListWithMovingImageRemoved.indexOf(destinationImage)
+        val destinationIndex = imageListWithMovingImageRemoved.indexOf(destinationImage)
+        println(imageListWithMovingImageRemoved)
 
-        if (destinationImageIndex < 0) return imageListWithMovingImageRemoved
+        if (destinationIndex < 0) return imageListWithMovingImageRemoved
+
+//        TODO CHOOSE ONE OF THESE 3 OPTIONS
+
+//        val mutList = imageListWithMovingImageRemoved.toMutableList()
+//        mutList.add(destinationIndex + 1, movingImage)
+//
+//        return mutList.map { it }
 
         val imagesBeforeTarget = imageListWithMovingImageRemoved
-            .filterIndexed { index, _ -> index <= destinationImageIndex }
+            .subList(0, destinationIndex + 1)
 
         val imagesAfterTarget = imageListWithMovingImageRemoved
-            .filterIndexed { index, _ -> index > destinationImageIndex }
+            .subList(destinationIndex + 1, imageListWithMovingImageRemoved.size)
 
         return imagesBeforeTarget + listOf(movingImage) + imagesAfterTarget
+
+//        val imagesBeforeTarget = imageListWithMovingImageRemoved
+//            .filterIndexed { index, _ -> index <= destinationIndex }
+//
+//        val imagesAfterTarget = imageListWithMovingImageRemoved
+//            .filterIndexed { index, _ -> index > destinationIndex }
+//
+//        return imagesBeforeTarget + listOf(movingImage) + imagesAfterTarget
     }
 }

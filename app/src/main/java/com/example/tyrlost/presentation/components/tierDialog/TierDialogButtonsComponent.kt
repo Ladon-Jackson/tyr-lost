@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation.components.TierDialog
+package com.example.tyrlost.presentation.components.tierDialog
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -17,7 +17,7 @@ fun TierDialogButtonsComponent(
     newName: String,
     onDismiss: () -> Unit,
     onRename: (Int, String) -> Unit,
-    resetText: () -> Unit
+    resetText: () -> Unit,
 ) {
     Row(
         modifier = Modifier

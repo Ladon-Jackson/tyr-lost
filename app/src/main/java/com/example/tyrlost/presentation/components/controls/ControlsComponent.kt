@@ -40,7 +40,10 @@ fun ControlsComponent(
                 .height(80.dp)
                 .fillMaxWidth()
                 .clickable {
-                    if (currentImageSelected != null) moveImageToUnlisted(currentImageSelected)
+                    if (currentImageSelected != null) {
+                        moveImageToUnlisted(currentImageSelected)
+                        updateImageSelected(currentImageSelected)
+                    }
                 }
         ) {
             items(unlistedImages) {

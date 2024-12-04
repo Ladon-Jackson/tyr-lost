@@ -9,7 +9,7 @@ import com.example.tyrlost.ui.theme.redTier
 import com.example.tyrlost.ui.theme.yellowTier
 
 
-data class TierModel(val name: String, val color: Color, val images: List<Uri> = emptyList(), val newImages: List<Uri> = emptyList())
+data class TierModel(val name: String, val color: Color, val images: List<Uri> = emptyList())
 
 val defaultTiers = listOf(
     TierModel("S", redTier),

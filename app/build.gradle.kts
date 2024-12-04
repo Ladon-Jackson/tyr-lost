@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
+    //kotlin("plugin.serialization") version "1.9.0" //TODO I YOLO SET THIS TO MAKE IT WORK
 }
 
 android {
@@ -94,7 +95,9 @@ dependencies {
     // optional - Test helpers for LiveData
     testImplementation(libs.androidx.core.testing)
     // optional - Test helpers for Lifecycle runtime
-    testImplementation (libs.androidx.lifecycle.runtime.testing)
+    testImplementation(libs.androidx.lifecycle.runtime.testing)
     implementation(libs.coil.compose)
 
+    implementation(libs.androidx.navigation.compose)
+    // implementation(libs.kotlinx.serialization.json) //TODO I YOLOD THIS TO MAKE IT WORK
 }
