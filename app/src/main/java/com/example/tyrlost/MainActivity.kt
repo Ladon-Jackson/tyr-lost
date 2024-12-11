@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.tyrlost.presentation.components.MainComponent
-import com.example.tyrlost.presentation.components.tierList.TierListComponent
+import com.example.tyrlost.presentation.components.mainScreen.MainComponent
+import com.example.tyrlost.presentation.components.tierListScreen.TierListComponent
 import com.example.tyrlost.presentation.navigation.Screen
 import com.example.tyrlost.ui.theme.TyrlostTheme
 

@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation.components.tierList
+package com.example.tyrlost.presentation.components.tierListScreen
 
 import android.net.Uri
 import androidx.compose.foundation.layout.Column
@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.tyrlost.presentation.components.controls.ControlsComponent
-import com.example.tyrlost.presentation.components.tierDialog.TierDialogComponent
+import com.example.tyrlost.presentation.components.tierListScreen.controls.ControlsComponent
+import com.example.tyrlost.presentation.components.tierListScreen.tierDialog.TierDialogComponent
 import com.example.tyrlost.presentation.models.TierListModel
 import com.example.tyrlost.presentation.viewModels.CurrentSelectionViewModel
 import com.example.tyrlost.presentation.viewModels.TierListViewModel
@@ -31,10 +31,10 @@ fun TierListComponent(
     val currentTierOpen: Int? by currentSelectionViewModel.currentTierOpen.collectAsStateWithLifecycle()
     val currentImageSelected: Uri? by currentSelectionViewModel.currentImageSelected.collectAsStateWithLifecycle()
 
-    currentTierOpen?.let { index ->
+    currentTierOpen?.let {
         TierDialogComponent(
-            index = index,
-            name = tierList.tiers[index].name,
+            index = it,
+            name = tierList.tiers[it].name,
             onDismiss = currentSelectionViewModel::closeTierDialog,
             onRename = tierListViewModel::updateTierName,
             onDelete = tierListViewModel::removeTier

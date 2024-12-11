@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation.components.controls
+package com.example.tyrlost.presentation.components.tierListScreen.controls
 
 import android.net.Uri
 import androidx.compose.foundation.clickable
@@ -11,7 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.tyrlost.presentation.components.ImageComponent
+import com.example.tyrlost.presentation.components.tierListScreen.ImageComponent
 
 
 @Composable

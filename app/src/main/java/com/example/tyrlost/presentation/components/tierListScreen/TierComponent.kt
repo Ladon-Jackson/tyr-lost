@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation.components.tierList
+package com.example.tyrlost.presentation.components.tierListScreen
 
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.tyrlost.presentation.components.ImageComponent
 import com.example.tyrlost.presentation.models.TierModel
 
 
@@ -54,13 +53,14 @@ fun TierComponent(
             items(tierModel.images) {
                 ImageComponent(
                     image = it,
-                    isSelected = it == currentImageSelected
-                ) {
-                    if (!(currentImageSelected == null || currentImageSelected == it)) {
-                        moveImageToDestinationImage(currentImageSelected, it)
+                    isSelected = it == currentImageSelected,
+                    onClick = {
+                        if (!(currentImageSelected == null || currentImageSelected == it)) {
+                            moveImageToDestinationImage(currentImageSelected, it)
+                        }
+                        updateImageSelected(it)
                     }
-                    updateImageSelected(it)
-                }
+                )
             }
         }
     }

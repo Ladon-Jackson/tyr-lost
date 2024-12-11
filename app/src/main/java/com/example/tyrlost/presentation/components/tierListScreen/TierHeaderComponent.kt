@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation.components.tierList
+package com.example.tyrlost.presentation.components.tierListScreen
 
 import android.net.Uri
 import androidx.compose.foundation.clickable
