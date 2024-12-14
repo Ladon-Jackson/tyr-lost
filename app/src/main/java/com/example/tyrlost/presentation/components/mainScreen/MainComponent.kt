@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.example.tyrlost.presentation.models.defaultTierList
+import com.example.tyrlost.models.defaultTierList
 
 
 @Composable

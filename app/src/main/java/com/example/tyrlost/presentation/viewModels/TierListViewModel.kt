@@ -1,25 +1,30 @@
 package com.example.tyrlost.presentation.viewModels
 
+import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
-import com.example.tyrlost.presentation.models.TierListModel
-import com.example.tyrlost.presentation.models.TierModel
-import com.example.tyrlost.presentation.models.defaultTierList
+import com.example.tyrlost.models.TierListModel
+import com.example.tyrlost.models.TierModel
+import com.example.tyrlost.models.defaultTierList
+import com.example.tyrlost.services.FileService
 import com.example.tyrlost.ui.theme.redTier
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
-
-class TierListViewModel : ViewModel() {
+//TODO DI
+//@HiltViewModel
+//class TierListViewModel @Inject constructor(val fileService: FileService): ViewModel() {
+class TierListViewModel: ViewModel() {
 
     private val _tierList: MutableStateFlow<TierListModel> = MutableStateFlow(defaultTierList)
-
     val tierList: StateFlow<TierListModel> = _tierList
 
-    fun addNewImages(newImages: List<Uri>) = _tierList.update { it.copy(
-        unlistedImages = newImages + it.unlistedImages
-    ) }
+    fun addNewImages(newImageUris: List<Uri>, context: Context) = _tierList.update {
+        //TODO DI
+        val updatedUris = FileService(context).saveImagesToInternalStorage(newImageUris)
+        it.copy(unlistedImages = updatedUris + it.unlistedImages)
+    }
 
     fun removeTier(removedIndex: Int) = _tierList.update { it.copy(
         tiers = it.tiers.filterIndexed { index, _ -> removedIndex != index }
@@ -46,24 +51,22 @@ class TierListViewModel : ViewModel() {
         tiers = addImage(image, removeImageTiers(image, it.tiers), updatedTierIndex)
     ) }
 
-    fun moveImageToDestinationImageTiers(movingImage: Uri, destinationImage: Uri) {
-        _tierList.update { it.copy(
-            unlistedImages = moveImageToDestinationImageList(
-                movingImage = movingImage,
-                destinationImage = destinationImage,
-                images = it.unlistedImages,
-            ),
-            tiers = it.tiers.map { tier ->
-                tier.copy(
-                    images = moveImageToDestinationImageList(
-                        movingImage = movingImage,
-                        destinationImage = destinationImage,
-                        images = tier.images
-                    )
+    fun moveImageToDestinationImageTiers(movingImage: Uri, destinationImage: Uri) = _tierList.update { it.copy(
+        unlistedImages = moveImageToDestinationImageList(
+            movingImage = movingImage,
+            destinationImage = destinationImage,
+            images = it.unlistedImages,
+        ),
+        tiers = it.tiers.map { tier ->
+            tier.copy(
+                images = moveImageToDestinationImageList(
+                    movingImage = movingImage,
+                    destinationImage = destinationImage,
+                    images = tier.images
                 )
-            }
-        ) }
-    }
+            )
+        }
+    ) }
 
     private fun addImage(
         image: Uri,

@@ -1,6 +1,7 @@
 package com.example.tyrlost
 
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -23,6 +24,17 @@ class MainActivity : ComponentActivity() {
         setContent {
             TyrlostTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+
+//                    TODO think this was just me testing out reading files can probs delete this at some point
+//                    applicationContext.contentResolver.query(
+//                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null, null
+//                    )?.use { cursor ->
+//                        val nameColumn = cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME)
+//                        while (cursor.moveToNext()) {
+//                            val name = cursor.getString(nameColumn)
+//                            println("THIS FILE NAME IS")
+//                        }
+//                    }
 
                     val navController = rememberNavController()
 

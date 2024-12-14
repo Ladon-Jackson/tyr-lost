@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation.models
+package com.example.tyrlost.models
 
 import android.net.Uri
 import com.example.tyrlost.ui.theme.blueTier

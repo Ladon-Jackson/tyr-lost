@@ -1,5 +1,6 @@
 package com.example.tyrlost.presentation.components.tierListScreen.controls
 
+import android.content.Context
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -13,6 +14,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 
 
@@ -21,20 +23,23 @@ fun AddButtonsComponent(
     nextTierIndex: Int,
     addTier: () -> Unit,
     openDialog: (Int) -> Unit,
-    addImages: (List<Uri>) -> Unit
+    addImages: (List<Uri>, Context) -> Unit,
 ) {
+
+    val context = LocalContext.current
 
     val photoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickMultipleVisualMedia(),
-        onResult = {images -> addImages(images)}
+        onResult = { uris ->
+            addImages(uris, context)
+        }
     )
 
-    Box(modifier = Modifier) {
+    Box {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(PaddingValues(start = 10.dp))
-
         ) {
             Button(
                 onClick = {

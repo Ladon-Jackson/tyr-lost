@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
+//    id("com.google.dagger.hilt.android") version "2.53.1" apply false //TODO DI
     //kotlin("plugin.serialization") version "1.9.0" //TODO I YOLO SET THIS TO MAKE IT WORK
 }
 
@@ -110,4 +111,17 @@ dependencies {
     testImplementation(libs.androidx.room.testing)
     implementation(libs.androidx.room.paging)
     // implementation(libs.kotlinx.serialization.json) //TODO I YOLOD THIS TO MAKE IT WORK
+
+//TODO DI
+//    //Dagger - Hilt
+//    implementation(libs.hilt.android)
+//    kapt(libs.hilt.android.compiler)
+//    implementation(libs.androidx.hilt.lifecycle.viewmodel)
+//    kapt(libs.androidx.hilt.compiler)
+//    implementation(libs.androidx.hilt.navigation.compose)
+//
+    // Retrofit
+//    implementation(libs.retrofit)
+//    implementation(libs.okhttp)
 }
+
