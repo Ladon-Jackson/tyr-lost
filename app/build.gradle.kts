@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
 //    id("com.google.dagger.hilt.android") version "2.53.1" apply false //TODO DI
-    //kotlin("plugin.serialization") version "1.9.0" //TODO I YOLO SET THIS TO MAKE IT WORK
 }
 
 android {
@@ -110,7 +109,7 @@ dependencies {
     implementation(libs.androidx.room.guava)
     testImplementation(libs.androidx.room.testing)
     implementation(libs.androidx.room.paging)
-    // implementation(libs.kotlinx.serialization.json) //TODO I YOLOD THIS TO MAKE IT WORK
+    implementation(libs.kotlinx.serialization.json)
 
 //TODO DI
 //    //Dagger - Hilt
