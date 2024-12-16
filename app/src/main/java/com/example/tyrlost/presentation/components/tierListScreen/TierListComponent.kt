@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.tyrlost.models.TierListDB
 import com.example.tyrlost.models.TierListModel
 import com.example.tyrlost.presentation.components.tierListScreen.controls.ControlsComponent
 import com.example.tyrlost.presentation.components.tierListScreen.tierDialog.TierDialogComponent
@@ -23,6 +24,7 @@ import com.example.tyrlost.presentation.viewModels.TierListViewModel
 fun TierListComponent(
     modifier: Modifier = Modifier,
     navigateToMain: () -> Unit,
+    db: TierListDB,
     tierListViewModel: TierListViewModel = viewModel(),
     currentSelectionViewModel: CurrentSelectionViewModel = viewModel(),
 ) {

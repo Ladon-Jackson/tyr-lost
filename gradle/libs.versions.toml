@@ -3,24 +3,18 @@ agp = "8.6.1"
 coilCompose = "3.0.4"
 compose = "1.0.0-beta01"
 coreTesting = "2.2.0"
-hiltAndroid = "2.51.1"
-hiltAndroidCompiler = "2.40.5"
-hiltAndroidVersion = "2.40.5"
-hiltCompiler = "1.0.0"
-hiltLifecycleViewmodel = "1.0.0-alpha03"
-kotlin = "1.9.0"
-coreKtx = "1.10.1"
+kotlin = "2.1.0"
+coreKtx = "1.15.0"
 junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
-#kotlinxSerializationJson = "1.5.0" #TODO I YOLO SET THIS TO MAKE IT WORK
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
 kotlinxSerializationJson = "1.7.3"
-lifecycleRuntimeKtx = "2.6.1"
-activityCompose = "1.8.0"
-composeBom = "2024.04.01"
+lifecycleRuntimeKtx = "2.8.7"
+activityCompose = "1.9.3"
+composeBom = "2024.12.01"
 lifecycleRuntimeKtxVersion = "2.8.7"
 lifecycleRuntimeTesting = "2.8.7"
-navigationCompose = "2.8.4"
+navigationCompose = "2.8.5"
 okhttp = "5.0.0-alpha.3"
 retrofit = "2.9.0"
 roomCompiler = "2.6.1"
@@ -35,9 +29,6 @@ roomTesting = "2.6.1"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
-androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompiler" }
-androidx-hilt-lifecycle-viewmodel = { module = "androidx.hilt:hilt-lifecycle-viewmodel", version.ref = "hiltLifecycleViewmodel" }
-androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltCompiler" }
 androidx-lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycleRuntimeTesting" }
 androidx-lifecycle-compiler = { module = "androidx.lifecycle:lifecycle-compiler", version.ref = "lifecycleRuntimeTesting" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleRuntimeTesting" }
@@ -61,10 +52,6 @@ androidx-room-rxjava3 = { module = "androidx.room:room-rxjava3", version.ref = "
 androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "roomTesting" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 compose = { module = "com.github.bumptech.glide:compose", version.ref = "compose" }
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroid" }
-hilt-android-compiler-v2405 = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompiler" }
-hilt-android-v2405 = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroidVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -85,4 +72,7 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
 

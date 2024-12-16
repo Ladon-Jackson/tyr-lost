@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.example.tyrlost.models.TierListDB
 import com.example.tyrlost.models.defaultTierList
 
 
@@ -14,6 +15,7 @@ import com.example.tyrlost.models.defaultTierList
 fun MainComponent(
     modifier: Modifier = Modifier,
     navigateToTierList: () -> Unit,
+    db: TierListDB
 ) {
 
     LazyRow(

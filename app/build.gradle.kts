@@ -1,13 +1,14 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt")
-//    id("com.google.dagger.hilt.android") version "2.53.1" apply false //TODO DI
+    alias(libs.plugins.compose.compiler)
+    id("com.google.devtools.ksp")
 }
 
 android {
+
     namespace = "com.example.tyrlost"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.tyrlost"
@@ -31,19 +32,24 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
         compose = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -83,7 +89,7 @@ dependencies {
     // Saved state module for ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.savedstate)
     // Annotation processor
-    kapt(libs.androidx.lifecycle.compiler)
+    ksp(libs.androidx.lifecycle.compiler)
     // alternately - if using Java8, use the following instead of lifecycle-compiler
     implementation(libs.androidx.lifecycle.common.java8)
     // optional - helpers for implementing LifecycleOwner in a Service
@@ -101,7 +107,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.androidx.room.runtime)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.rxjava2)
@@ -110,17 +116,5 @@ dependencies {
     testImplementation(libs.androidx.room.testing)
     implementation(libs.androidx.room.paging)
     implementation(libs.kotlinx.serialization.json)
-
-//TODO DI
-//    //Dagger - Hilt
-//    implementation(libs.hilt.android)
-//    kapt(libs.hilt.android.compiler)
-//    implementation(libs.androidx.hilt.lifecycle.viewmodel)
-//    kapt(libs.androidx.hilt.compiler)
-//    implementation(libs.androidx.hilt.navigation.compose)
-//
-    // Retrofit
-//    implementation(libs.retrofit)
-//    implementation(libs.okhttp)
 }
 
