@@ -3,22 +3,29 @@ package com.example.tyrlost.presentation.viewModels
 import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
+import com.example.tyrlost.models.TierListDao
 import com.example.tyrlost.models.TierListModel
 import com.example.tyrlost.models.TierModel
 import com.example.tyrlost.models.defaultTierList
 import com.example.tyrlost.services.FileService
 import com.example.tyrlost.ui.theme.redTier
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
-class TierListViewModel: ViewModel() {
+@HiltViewModel
+class TierListViewModel @Inject constructor(
+    private val fileService: FileService,
+    private val dao: TierListDao
+): ViewModel() {
+
 
     private val _tierList: MutableStateFlow<TierListModel> = MutableStateFlow(defaultTierList)
     val tierList: StateFlow<TierListModel> = _tierList
 
     fun addNewImages(newImageUris: List<Uri>, context: Context) = _tierList.update {
-        //TODO DI
         val updatedUris = FileService(context).saveImagesToInternalStorage(newImageUris)
         val updatedTierList = it.copy(unlistedImages = updatedUris + it.unlistedImages)
 //        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
@@ -99,8 +106,8 @@ class TierListViewModel: ViewModel() {
             when {
                 tierIndex == currentIndex ->
                     tierModel.copy(images = addImage(image, tierModel.images))
-
-                else -> tierModel
+                else ->
+                    tierModel
             }
         }
 

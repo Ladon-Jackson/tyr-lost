@@ -11,23 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.room.Room
-import com.example.tyrlost.models.TierListDB
 import com.example.tyrlost.presentation.components.mainScreen.MainComponent
 import com.example.tyrlost.presentation.components.tierListScreen.TierListComponent
 import com.example.tyrlost.presentation.navigation.Screen
 import com.example.tyrlost.ui.theme.TyrlostTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    //TODO DI
-    private val db by lazy {
-        Room.databaseBuilder(
-            applicationContext,
-            TierListDB::class.java,
-            "contacts.db"
-        ).build()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,15 +36,13 @@ class MainActivity : ComponentActivity() {
                         composable(Screen.Main.route) {
                             MainComponent(
                                 Modifier.padding(innerPadding),
-                                navigateToTierList = { navController.navigate(route = Screen.TierList.route) },
-                                db = db
+                                navigateToTierList = { navController.navigate(route = Screen.TierList.route) }
                             )
                         }
                         composable(Screen.TierList.route) {
                             TierListComponent(
                                 Modifier.padding(innerPadding),
-                                navigateToMain = { navController.navigate(route = Screen.Main.route) },
-                                db = db
+                                navigateToMain = { navController.navigate(route = Screen.Main.route) }
                             )
                         }
                     }
