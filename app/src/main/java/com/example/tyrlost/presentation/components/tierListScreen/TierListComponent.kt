@@ -63,7 +63,7 @@ fun TierListComponent(
 
         ControlsComponent(
             nextTierIndex = tierList.tiers.size,
-            unlistedImages = tierList.unlistedImages,
+            unlistedImages = tierList.unlistedTier.images,                                              //TODO change back to this when fixed                   unlistedImages = tierList.unlistedImages,
             currentImageSelected = currentImageSelected,
             updateImageSelected = currentSelectionViewModel::updateImageSelected,
             addTier = tierListViewModel::addTier,

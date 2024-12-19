@@ -1,8 +1,8 @@
 package com.example.tyrlost.presentation.viewModels
 
-import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.tyrlost.models.TierListDao
 import com.example.tyrlost.models.TierListModel
 import com.example.tyrlost.models.TierModel
@@ -12,36 +12,44 @@ import com.example.tyrlost.ui.theme.redTier
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@kotlinx.coroutines.ExperimentalCoroutinesApi
 @HiltViewModel
 class TierListViewModel @Inject constructor(
     private val fileService: FileService,
     private val dao: TierListDao
 ): ViewModel() {
 
-
     private val _tierList: MutableStateFlow<TierListModel> = MutableStateFlow(defaultTierList)
     val tierList: StateFlow<TierListModel> = _tierList
 
-    fun addNewImages(newImageUris: List<Uri>, context: Context) = _tierList.update {
-        val updatedUris = FileService(context).saveImagesToInternalStorage(newImageUris)
-        val updatedTierList = it.copy(unlistedImages = updatedUris + it.unlistedImages)
-//        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
+    init {
+        dao.getTierList().mapLatest { newTierModel ->
+            _tierList.update { newTierModel }
+        }
+    }
+
+    fun addNewImages(newImageUris: List<Uri>) = _tierList.update {
+        val updatedUris = fileService.saveImagesToInternalStorage(newImageUris)
+        val updatedTierList = it.copy(unlistedTier = TierModel(images = updatedUris + it.unlistedTier.images))
+        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
         updatedTierList
     }
 
     fun removeTier(removedIndex: Int) = _tierList.update {
         val updatedTierList =
             it.copy(tiers = it.tiers.filterIndexed { index, _ -> removedIndex != index })
-//        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
+        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
         updatedTierList
     }
 
     fun addTier() = _tierList.update {
         val updatedTierList = it.copy(tiers = it.tiers.plus(TierModel("", redTier)))
-//        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
+        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
         updatedTierList
     }
 
@@ -52,36 +60,36 @@ class TierListViewModel @Inject constructor(
                 else tier
             }
         )
-//        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
+        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
         updatedTierList
     }
 
     fun moveImageToUnlisted(image: Uri) = _tierList.update {
         val updatedTierList = it.copy(
             tiers = removeImageTiers(image, it.tiers),
-            unlistedImages = addImage(image, removeImageList(image, it.unlistedImages))
+            unlistedTier = TierModel(images = addImage(image, removeImageList(image, it.unlistedTier.images))) //TODO change back to this when fixed                unlistedImages = addImage(image, removeImageList(image, it.unlistedImages))
         )
-//        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
+        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
         updatedTierList
     }
 
     fun moveImageToTier(updatedTierIndex: Int, image: Uri) = _tierList.update {
         val updatedTierList = it.copy(
-            unlistedImages = removeImageList(image, it.unlistedImages),
+        unlistedTier = TierModel(images = removeImageList(image, it.unlistedTier.images)),              //TODO change back to this when fixed             unlistedImages = removeImageList(image, it.unlistedImages),
             tiers = addImage(image, removeImageTiers(image, it.tiers), updatedTierIndex)
         )
-//        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
+        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
         updatedTierList
     }
 
     fun moveImageToDestinationImageTiers(movingImage: Uri, destinationImage: Uri) =
         _tierList.update {
             val updatedTierList = it.copy(
-                unlistedImages = moveImageToDestinationImageList(
+                unlistedTier = TierModel(images = moveImageToDestinationImageList(                      //TODO change back to this when fixed unlistedTier = moveImageToDestinationImageList(
                     movingImage = movingImage,
                     destinationImage = destinationImage,
-                    images = it.unlistedImages,
-                ),
+                    images = it.unlistedTier.images,                                                    //TODO change back to this when fixed              images = it.unlistedImages,
+                )),
                 tiers = it.tiers.map { tier ->
                     tier.copy(
                         images = moveImageToDestinationImageList(
@@ -92,7 +100,7 @@ class TierListViewModel @Inject constructor(
                     )
                 }
             )
-//            viewModelScope.launch { dao.upsertTierList(updatedTierList) }
+            viewModelScope.launch { dao.upsertTierList(updatedTierList) }
             updatedTierList
 
         }

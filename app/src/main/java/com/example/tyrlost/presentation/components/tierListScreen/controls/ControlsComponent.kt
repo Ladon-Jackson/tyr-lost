@@ -1,6 +1,5 @@
 package com.example.tyrlost.presentation.components.tierListScreen.controls
 
-import android.content.Context
 import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -23,7 +22,7 @@ fun ControlsComponent(
     updateImageSelected: (Uri) -> Unit,
     addTier: () -> Unit,
     openTierDialog: (Int) -> Unit,
-    addImages: (List<Uri>, Context) -> Unit,
+    addImages: (List<Uri>) -> Unit,
     moveImageToUnlisted: (Uri) -> Unit,
     moveImageToDestinationImage: (Uri, Uri) -> Unit,
 ) {

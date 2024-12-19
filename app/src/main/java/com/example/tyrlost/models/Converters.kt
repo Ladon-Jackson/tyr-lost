@@ -2,28 +2,30 @@ package com.example.tyrlost.models
 
 import android.net.Uri
 import androidx.room.TypeConverter
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class Converters {
 
     @TypeConverter
-    fun tierModelListToJson(value: List<TierModel>): String {
-        return Json.encodeToString(value)
-    }
+    fun tierModelListToJson(value: List<TierModel>): String = Json.encodeToString(value)
 
     @TypeConverter
-    fun tierModelListFromJson(value: String): List<TierModel> {
-        return Json.decodeFromString(value)
-    }
+    fun tierModelListFromJson(value: String): List<TierModel> = Json.decodeFromString(value)
 
     @TypeConverter
-    fun uriListToJson(value: List<Uri>): String {
-        return Json.encodeToString(value)
-    }
+    fun tierModelToJson(value: TierModel): String = Json.encodeToString(value)
 
     @TypeConverter
-    fun uriListFromJson(value: String): List<Uri> {
-        return Json.decodeFromString(value)
-    }
+    fun tierModelFromJson(value: String): TierModel = Json.decodeFromString(value)
+
+
+
+    //TODO fix these so TierModel can be removed from untiered field in TierListModel
+    @TypeConverter
+    fun uriListToJson(value: List<@Serializable(UriSerializer::class) Uri>): String = ""//Json.encodeToString(value)
+
+    @TypeConverter
+    fun uriListFromJson(value: String): List<Uri> = emptyList()//Json.decodeFromString(value)
 }

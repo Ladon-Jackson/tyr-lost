@@ -26,7 +26,7 @@ class Modules {
     fun provideDB(application: Application): TierListDB = Room.databaseBuilder(
         application.applicationContext,
         TierListDB::class.java,
-        "contacts.db"
+        "tierList.db"
     ).build()
 
     @Provides

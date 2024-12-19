@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+    kotlin("plugin.serialization") version "2.1.0"
 }
 
 android {
@@ -117,19 +118,16 @@ dependencies {
     testImplementation(libs.androidx.room.testing)
     implementation(libs.androidx.room.paging)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlin.serialization.compiler.plugin)
+
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
-
+    implementation(libs.androidx.hilt.navigation.compose)
     // For instrumentation tests
     androidTestImplementation(libs.hilt.android.testing)
     kspAndroidTest(libs.hilt.compiler)
-
     // For local unit tests
     testImplementation(libs.hilt.android.testing)
     kspTest(libs.hilt.compiler)
-
-    implementation(libs.androidx.hilt.navigation.compose)
-
 }
-

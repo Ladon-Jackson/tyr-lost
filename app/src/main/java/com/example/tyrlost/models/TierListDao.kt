@@ -18,4 +18,7 @@ interface TierListDao {
     @Query("SELECT * FROM tierLists")
     fun getTierLists(): Flow<List<TierListModel>>
 
+    @Query("SELECT * FROM tierLists LIMIT 1")
+    fun getTierList(): Flow<TierListModel>
+
 }

@@ -5,11 +5,11 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 
+@TypeConverters(Converters::class)
 @Database(
     entities = [TierListModel::class],
     version = 1
 )
-@TypeConverters(Converters::class)
 abstract class TierListDB: RoomDatabase() {
 
     abstract val dao: TierListDao
