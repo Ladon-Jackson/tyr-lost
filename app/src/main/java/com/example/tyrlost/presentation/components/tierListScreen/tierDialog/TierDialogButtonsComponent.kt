@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 fun TierDialogButtonsComponent(
     onDismiss: () -> Unit,
     onUpdate: () -> Unit,
-    resetText: () -> Unit,
+    onReset: () -> Unit,
 ) {
     Row(
         modifier = Modifier
@@ -27,7 +27,7 @@ fun TierDialogButtonsComponent(
                 .weight(1f)
                 .padding(PaddingValues(1.dp)),
             onClick = {
-                resetText()
+                onReset()
                 onDismiss()
             }
         ) { Text("Cancel") }
@@ -38,7 +38,7 @@ fun TierDialogButtonsComponent(
                 .padding(PaddingValues(1.dp)),
             onClick = {
                 onUpdate()
-                resetText()
+                onReset()
                 onDismiss()
             }
         ) { Text("Apply") }

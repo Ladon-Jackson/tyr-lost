@@ -51,25 +51,35 @@ class TierListViewModel @Inject constructor(
         viewModelScope.launch { dao.upsertTierList(updatedTierList) }
     }
 
-    fun updateTierName(changeIndex: Int, newName: String) = tierList.value.let {
+//    fun updateTierName(changeIndex: Int, newName: String) = tierList.value.let {
+//        val updatedTierList = it.copy(
+//            tiers = it.tiers.mapIndexed { idx, tier ->
+//                if (idx == changeIndex) tier.copy(name = newName)
+//                else tier
+//            }
+//        )
+//        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
+//    }
+
+    fun updateTierDetails(changeIndex: Int, newName: String? = null, newColor: Color? = null) = tierList.value.let {
         val updatedTierList = it.copy(
             tiers = it.tiers.mapIndexed { idx, tier ->
-                if (idx == changeIndex) tier.copy(name = newName)
+                if (idx == changeIndex) tier.copy(name = newName ?: tier.name, color = newColor ?: tier.color)
                 else tier
             }
         )
         viewModelScope.launch { dao.upsertTierList(updatedTierList) }
     }
 
-    fun updateTierColor(changeIndex: Int, newColor: Color) = tierList.value.let {
-        val updatedTierList = it.copy(
-            tiers = it.tiers.mapIndexed { idx, tier ->
-                if (idx == changeIndex) tier.copy(color = newColor)
-                else tier
-            }
-        )
-        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
-    }
+//    fun updateTierColor(changeIndex: Int, newColor: Color) = tierList.value.let {
+//        val updatedTierList = it.copy(
+//            tiers = it.tiers.mapIndexed { idx, tier ->
+//                if (idx == changeIndex) tier.copy(color = newColor)
+//                else tier
+//            }
+//        )
+//        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
+//    }
 
     fun moveImageToUnlisted(image: Uri) = tierList.value.let {
         val updatedTierList = it.copy(

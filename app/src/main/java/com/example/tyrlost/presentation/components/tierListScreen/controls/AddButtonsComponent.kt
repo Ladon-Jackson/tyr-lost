@@ -38,7 +38,7 @@ fun AddButtonsComponent(
             Button(
                 onClick = {
                     addTier()
-                    openDialog(nextTierIndex)
+//                    openDialog(nextTierIndex)
                 },
                 modifier = Modifier
                     .padding(PaddingValues(end = 10.dp))

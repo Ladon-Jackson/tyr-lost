@@ -17,7 +17,6 @@ import com.example.tyrlost.ui.theme.tierColors
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ColorComponent(
-    selectedColor: Color,
     selectColor: (Color) -> Unit,
     closeColors: () -> Unit
 ) {

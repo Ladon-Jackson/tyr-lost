@@ -24,7 +24,7 @@ class TierDetailsViewModel : ViewModel() {
 
     fun setColorsOpen(isOpen: Boolean) = _colorsOpen.update { isOpen }
 
-    fun reset() {
+    fun onReset() {
         _text.update { "" }
 //        _color.update { "" }
     }
