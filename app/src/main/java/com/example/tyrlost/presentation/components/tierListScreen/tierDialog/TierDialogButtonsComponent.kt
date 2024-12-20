@@ -13,10 +13,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun TierDialogButtonsComponent(
-    index: Int,
-    newName: String,
     onDismiss: () -> Unit,
-    onRename: (Int, String) -> Unit,
+    onUpdate: () -> Unit,
     resetText: () -> Unit,
 ) {
     Row(
@@ -39,7 +37,7 @@ fun TierDialogButtonsComponent(
                 .weight(1f)
                 .padding(PaddingValues(1.dp)),
             onClick = {
-                onRename(index, newName)
+                onUpdate()
                 resetText()
                 onDismiss()
             }

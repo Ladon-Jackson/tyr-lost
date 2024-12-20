@@ -1,6 +1,7 @@
 package com.example.tyrlost.presentation.viewModels
 
 import android.net.Uri
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tyrlost.helpers.FileHelper
@@ -54,6 +55,16 @@ class TierListViewModel @Inject constructor(
         val updatedTierList = it.copy(
             tiers = it.tiers.mapIndexed { idx, tier ->
                 if (idx == changeIndex) tier.copy(name = newName)
+                else tier
+            }
+        )
+        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
+    }
+
+    fun updateTierColor(changeIndex: Int, newColor: Color) = tierList.value.let {
+        val updatedTierList = it.copy(
+            tiers = it.tiers.mapIndexed { idx, tier ->
+                if (idx == changeIndex) tier.copy(color = newColor)
                 else tier
             }
         )

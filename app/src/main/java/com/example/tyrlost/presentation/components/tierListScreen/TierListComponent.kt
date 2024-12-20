@@ -38,8 +38,10 @@ fun TierListComponent(
         TierDialogComponent(
             index = it,
             name = tierList.tiers[it].name,
+            color = tierList.tiers[it].color,
             onDismiss = currentSelectionViewModel::closeTierDialog,
             onRename = tierListViewModel::updateTierName,
+            onColorChange = tierListViewModel::updateTierColor,
             onDelete = tierListViewModel::removeTier
         )
     }
