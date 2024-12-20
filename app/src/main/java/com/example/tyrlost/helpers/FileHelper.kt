@@ -1,4 +1,4 @@
-package com.example.tyrlost.services;
+package com.example.tyrlost.helpers;
 
 import android.content.Context
 import android.net.Uri
@@ -6,7 +6,7 @@ import androidx.core.net.toUri
 import java.io.File
 import java.util.UUID
 
-class FileService(private val context: Context) {
+class FileHelper(private val context: Context) {
 
     fun saveImagesToInternalStorage(uris: List<Uri>): List<Uri> {
 
@@ -31,22 +31,4 @@ class FileService(private val context: Context) {
             currentFile.toUri()
         }
     }
-
-//    fun saveImageToInternalStorage(uri: Uri): String {
-//
-//        val fileName = "${UUID.randomUUID()}.jpg"
-//        File(context.filesDir, "images").mkdirs()
-//        val inputStream = context.contentResolver.openInputStream(uri)
-//        val outputStream = File(context.filesDir, "images/$fileName").outputStream()
-//
-//        inputStream?.use { input ->
-//            outputStream.use { output ->
-//                input.copyTo(output)
-//            }
-//        }
-//
-//        inputStream?.close()
-//        outputStream.close()
-//        return fileName
-//    }
 }

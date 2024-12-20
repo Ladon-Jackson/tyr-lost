@@ -2,9 +2,9 @@ package com.example.tyrlost
 
 import android.app.Application
 import androidx.room.Room
+import com.example.tyrlost.helpers.FileHelper
 import com.example.tyrlost.models.TierListDB
 import com.example.tyrlost.models.TierListDao
-import com.example.tyrlost.services.FileService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +17,7 @@ class Modules {
 
     @Provides
     @Singleton
-    fun provideFileService(application: Application): FileService = FileService(
+    fun provideFileService(application: Application): FileHelper = FileHelper(
         context = application.applicationContext
     )
 

@@ -18,8 +18,10 @@ import com.example.tyrlost.presentation.components.tierListScreen.controls.Contr
 import com.example.tyrlost.presentation.components.tierListScreen.tierDialog.TierDialogComponent
 import com.example.tyrlost.presentation.viewModels.CurrentSelectionViewModel
 import com.example.tyrlost.presentation.viewModels.TierListViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun TierListComponent(
     modifier: Modifier = Modifier,
