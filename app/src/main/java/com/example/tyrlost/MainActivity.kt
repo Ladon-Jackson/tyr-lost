@@ -16,10 +16,12 @@ import com.example.tyrlost.presentation.components.tierListScreen.TierListCompon
 import com.example.tyrlost.presentation.navigation.Screen
 import com.example.tyrlost.ui.theme.TyrlostTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
 class MainActivity: ComponentActivity() {
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

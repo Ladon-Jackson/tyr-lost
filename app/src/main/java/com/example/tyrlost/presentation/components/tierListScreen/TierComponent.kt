@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,7 +32,6 @@ fun TierComponent(
             .defaultMinSize(minHeight = 80.dp)
 //            .height(80.dp)
             .fillMaxWidth()
-            .padding(1.dp)
             .background(Color.Gray)
             .clickable {
                 if (currentImageSelected != null) {

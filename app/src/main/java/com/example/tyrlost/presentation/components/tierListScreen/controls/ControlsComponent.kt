@@ -6,7 +6,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -38,7 +37,6 @@ fun ControlsComponent(
 
         LazyRow(
             modifier = Modifier
-                .padding(5.dp)
                 .height(80.dp)
                 .fillMaxWidth()
                 .background(Color.DarkGray)
