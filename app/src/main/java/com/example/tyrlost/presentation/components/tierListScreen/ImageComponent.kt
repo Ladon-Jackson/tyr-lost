@@ -19,7 +19,10 @@ import coil3.compose.AsyncImage
 
 
 @Composable
-fun ImageComponent(image: Uri, isSelected: Boolean, onClick: () -> Unit) {
+fun ImageComponent(
+    image: Uri,
+    isSelected: Boolean, onClick: () -> Unit,
+) {
 
     val borderDp: Dp = if(isSelected) 5.dp else 1.dp
 
