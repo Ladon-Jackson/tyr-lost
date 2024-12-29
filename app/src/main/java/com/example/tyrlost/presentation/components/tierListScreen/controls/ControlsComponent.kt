@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -49,6 +50,7 @@ fun ControlsComponent(
         ) {
             items(unlistedImages) {
                 ImageComponent(
+                    modifier = Modifier.width(width = 80.dp),
                     image = it,
                     isSelected = it == currentImageSelected,
                     onClick = {

@@ -41,8 +41,12 @@ class TierListViewModel @Inject constructor(
     }
 
     fun removeTier(removedIndex: Int) = tierList.value.let {
-        val updatedTierList =
-            it.copy(tiers = it.tiers.filterIndexed { index, _ -> removedIndex != index })
+        val updatedTierList = it.copy(
+            tiers = it.tiers.filterIndexed { index, _ -> removedIndex != index },
+            unlistedTier = it.unlistedTier.copy(
+                images = it.tiers[removedIndex].images + it.unlistedTier.images
+            )
+        )
         viewModelScope.launch { dao.upsertTierList(updatedTierList) }
     }
 
@@ -50,16 +54,6 @@ class TierListViewModel @Inject constructor(
         val updatedTierList = it.copy(tiers = it.tiers.plus(TierModel("", redTier)))
         viewModelScope.launch { dao.upsertTierList(updatedTierList) }
     }
-
-//    fun updateTierName(changeIndex: Int, newName: String) = tierList.value.let {
-//        val updatedTierList = it.copy(
-//            tiers = it.tiers.mapIndexed { idx, tier ->
-//                if (idx == changeIndex) tier.copy(name = newName)
-//                else tier
-//            }
-//        )
-//        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
-//    }
 
     fun updateTierDetails(changeIndex: Int, newName: String? = null, newColor: Color? = null) = tierList.value.let {
         val updatedTierList = it.copy(
@@ -70,16 +64,6 @@ class TierListViewModel @Inject constructor(
         )
         viewModelScope.launch { dao.upsertTierList(updatedTierList) }
     }
-
-//    fun updateTierColor(changeIndex: Int, newColor: Color) = tierList.value.let {
-//        val updatedTierList = it.copy(
-//            tiers = it.tiers.mapIndexed { idx, tier ->
-//                if (idx == changeIndex) tier.copy(color = newColor)
-//                else tier
-//            }
-//        )
-//        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
-//    }
 
     fun moveImageToUnlisted(image: Uri) = tierList.value.let {
         val updatedTierList = it.copy(
