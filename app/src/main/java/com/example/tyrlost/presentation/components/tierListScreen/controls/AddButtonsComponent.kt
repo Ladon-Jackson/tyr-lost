@@ -15,9 +15,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun AddButtonsComponent(
-    nextTierIndex: Int,
     addTier: () -> Unit,
-    openDialog: (Int) -> Unit,
     addImages: (List<Uri>) -> Unit,
 ) {
 
@@ -26,27 +24,25 @@ fun AddButtonsComponent(
         onResult = { addImages(it) }
     )
 
-    Box {
-        Row(
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
+        Button(
+            onClick = {
+                addTier()
+            },
             modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            Button(
-                onClick = {
-                    addTier()
-                },
-                modifier = Modifier
-                    .weight(1f)
-            ) { Text("Add Tier") }
-            Button(
-                onClick = {
-                    photoPickerLauncher.launch(
-                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                    )
-                },
-                modifier = Modifier
-                    .weight(1f)
-            ) { Text("Add Image") }
-        }
+                .weight(1f)
+        ) { Text("Add Tier") }
+        Button(
+            onClick = {
+                photoPickerLauncher.launch(
+                    PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                )
+            },
+            modifier = Modifier
+                .weight(1f)
+        ) { Text("Add Image") }
     }
 }

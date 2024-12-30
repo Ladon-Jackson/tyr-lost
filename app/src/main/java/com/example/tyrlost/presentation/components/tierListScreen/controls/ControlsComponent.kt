@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,23 +20,30 @@ import com.example.tyrlost.presentation.components.tierListScreen.ImageComponent
 
 @Composable
 fun ControlsComponent(
-    nextTierIndex: Int,
     unlistedImages: List<Uri>,
     currentImageSelected: Uri?,
     updateImageSelected: (Uri) -> Unit,
     addTier: () -> Unit,
-    openTierDialog: (Int) -> Unit,
     addImages: (List<Uri>) -> Unit,
     moveImageToUnlisted: (Uri) -> Unit,
     moveImageToDestinationImage: (Uri, Uri) -> Unit,
+    deleteImage: (Uri) -> Unit,
 ) {
     Column {
-        AddButtonsComponent(
-            nextTierIndex = nextTierIndex,
-            addTier = addTier,
-            openDialog = openTierDialog,
-            addImages = addImages
-        )
+
+        if(currentImageSelected != null){
+            Button(
+                onClick = {
+                    deleteImage(currentImageSelected)
+                    updateImageSelected(currentImageSelected)
+                }
+            ) { Text("DELETE") }
+        } else {
+            AddButtonsComponent(
+                addTier = addTier,
+                addImages = addImages
+            )
+        }
 
         LazyRow(
             modifier = Modifier

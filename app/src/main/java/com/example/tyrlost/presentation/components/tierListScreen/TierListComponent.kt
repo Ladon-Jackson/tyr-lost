@@ -82,15 +82,14 @@ fun TierListComponent(
         }
 
         ControlsComponent(
-            nextTierIndex = tierList.tiers.size,
             unlistedImages = tierList.unlistedTier.images,                                              //TODO change back to this when fixed                   unlistedImages = tierList.unlistedImages,
             currentImageSelected = currentImageSelected,
             updateImageSelected = currentSelectionViewModel::updateImageSelected,
             addTier = tierListViewModel::addTier,
-            openTierDialog = currentSelectionViewModel::openTierDialog,
             addImages = tierListViewModel::addNewImages,
             moveImageToUnlisted = tierListViewModel::moveImageToUnlisted,
-            moveImageToDestinationImage = tierListViewModel::moveImageToDestinationImageTiers
+            moveImageToDestinationImage = tierListViewModel::moveImageToDestinationImageTiers,
+            deleteImage = tierListViewModel::deleteImage
         )
     }
 }

@@ -54,7 +54,8 @@ class MainActivity: ComponentActivity() {
                                 navigateToTierList = { id -> navController.navigate(route = Screen.TierList.route(id)) },
                                 createNewTierList = tierListsViewModel::addNewTierList,
                                 deleteTier = tierListsViewModel::deleteTierList,
-                                tierLists = tierLists
+                                tierLists = tierLists,
+                                deleteAll = tierListsViewModel::deleteAllImages
                             )
                         }
 

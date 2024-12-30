@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,7 +25,8 @@ fun MainComponent(
     navigateToTierList: (String) -> Unit,
     createNewTierList: () -> Unit,
     deleteTier: (TierListModel) -> Unit,
-    tierLists: List<TierListModel>
+    tierLists: List<TierListModel>,
+    deleteAll: () -> Unit,
 ) {
 
     LazyColumn(
@@ -61,5 +64,13 @@ fun MainComponent(
                 text = tierList.name,
             )
         }
+
+//        TODO delete this is just for testing stuff
+//        item {
+//            Button(
+//                colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+//                onClick = deleteAll
+//            ) { Text("DELETE") }
+//        }
     }
 }

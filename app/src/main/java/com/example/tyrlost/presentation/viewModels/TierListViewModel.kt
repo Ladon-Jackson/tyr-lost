@@ -34,16 +34,27 @@ class TierListViewModel @AssistedInject constructor(
     val tierList: StateFlow<TierListModel> = dao
         .getTierList(id)
         .map { it ?: TierListModel() }
-//        .map { it ?: defaultTierList }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = TierListModel()
-//            initialValue = defaultTierList
         )
 
+    fun deleteImage(image: Uri) = tierList.value.let {
+
+        fileService.deleteImageByUri(image)
+        val updatedTierList = it.copy(
+            tiers = removeImageTiers(image, it.tiers),
+            unlistedTier = TierModel(images = removeImageList(image, it.unlistedTier.images))
+        )
+        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
+    }
+
     fun addNewImages(newImageUris: List<Uri>) = tierList.value.let {
-        val updatedUris = fileService.saveImagesToInternalStorage(newImageUris)
+        val updatedUris = fileService.saveImagesToInternalStorage(
+            tierListId = it.id,
+            uris = newImageUris
+        )
         val updatedTierList = it.copy(unlistedTier = TierModel(images = updatedUris + it.unlistedTier.images))
         viewModelScope.launch { dao.upsertTierList(updatedTierList) }
     }
