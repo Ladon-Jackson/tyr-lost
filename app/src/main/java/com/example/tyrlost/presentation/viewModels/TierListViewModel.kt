@@ -8,30 +8,38 @@ import com.example.tyrlost.helpers.FileHelper
 import com.example.tyrlost.models.TierListDao
 import com.example.tyrlost.models.TierListModel
 import com.example.tyrlost.models.TierModel
-import com.example.tyrlost.models.defaultTierList
-import com.example.tyrlost.ui.theme.redTier
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @kotlinx.coroutines.ExperimentalCoroutinesApi
-@HiltViewModel
-class TierListViewModel @Inject constructor(
+@HiltViewModel(assistedFactory = TierListViewModel.TierListViewModelFactory::class)
+class TierListViewModel @AssistedInject constructor(
+    @Assisted private val id: String,
     private val fileService: FileHelper,
     private val dao: TierListDao
 ): ViewModel() {
 
+    @AssistedFactory
+    interface TierListViewModelFactory {
+        fun create(id: String): TierListViewModel
+    }
+
     val tierList: StateFlow<TierListModel> = dao
-        .getTierList()
-        .map { it ?: defaultTierList }
+        .getTierList(id)
+        .map { it ?: TierListModel() }
+//        .map { it ?: defaultTierList }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = defaultTierList
+            initialValue = TierListModel()
+//            initialValue = defaultTierList
         )
 
     fun addNewImages(newImageUris: List<Uri>) = tierList.value.let {
@@ -51,7 +59,7 @@ class TierListViewModel @Inject constructor(
     }
 
     fun addTier() = tierList.value.let {
-        val updatedTierList = it.copy(tiers = it.tiers.plus(TierModel("", redTier)))
+        val updatedTierList = it.copy(tiers = it.tiers.plus(TierModel()))
         viewModelScope.launch { dao.upsertTierList(updatedTierList) }
     }
 

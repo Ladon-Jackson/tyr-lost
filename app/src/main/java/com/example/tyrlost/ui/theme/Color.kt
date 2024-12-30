@@ -10,12 +10,6 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val redTier = Color(0xFFFF6056)
-val orangeTier = Color(0xFFFF9E37)
-val yellowTier = Color(0xFFFFEC71)
-val greenTier = Color(0xFF9BD969)
-val blueTier = Color(0xFF69C3D2)
-
 val tierColor1 = Color(0xFFFF5656)
 val tierColor2 = Color(0xFFFF8656)
 val tierColor3 = Color(0xFFFFA556)
@@ -31,6 +25,7 @@ val tierColor12 = Color(0xFF8956FF)
 val tierColor13 = Color(0xFFCC56FF)
 val tierColor14 = Color(0xFFFF56E8)
 val tierColor15 = Color(0xFFFF568C)
+val tierColor16 = Color(0xFF949494)
 
 val tierColors: List<Color> = listOf(
     tierColor1,
@@ -47,5 +42,6 @@ val tierColors: List<Color> = listOf(
     tierColor12,
     tierColor13,
     tierColor14,
-    tierColor15
+    tierColor15,
+    tierColor16
 )

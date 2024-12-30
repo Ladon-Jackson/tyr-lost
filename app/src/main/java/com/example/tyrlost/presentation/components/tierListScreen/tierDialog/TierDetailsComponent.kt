@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.tyrlost.ui.theme.redTier
 
 
 @Composable
@@ -34,7 +33,7 @@ fun TierDetailsComponent(
 
     Column {
         Button(
-            colors = ButtonDefaults.buttonColors(containerColor = redTier),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
             modifier = Modifier
                 .align(Alignment.End),
             onClick = onDelete

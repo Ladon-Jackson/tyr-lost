@@ -27,10 +27,12 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 fun TierListComponent(
-    modifier: Modifier = Modifier,
+    id: String,
     navigateToMain: () -> Unit,
-    tierListViewModel: TierListViewModel = hiltViewModel<TierListViewModel>(),
+    modifier: Modifier = Modifier,
     currentSelectionViewModel: CurrentSelectionViewModel = viewModel(),
+    tierListViewModel: TierListViewModel =
+        hiltViewModel<TierListViewModel, TierListViewModel.TierListViewModelFactory> { it.create(id) },
 ) {
 
     val tierList: TierListModel by tierListViewModel.tierList.collectAsStateWithLifecycle()

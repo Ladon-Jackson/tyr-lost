@@ -10,15 +10,14 @@ import kotlinx.coroutines.flow.Flow
 interface TierListDao {
 
     @Upsert
-    suspend fun upsertTierList(tierList: TierListModel)
+    suspend fun upsertTierList(tierList: TierListModel = TierListModel())
 
     @Delete
     suspend fun deleteTierList(tierList: TierListModel)
 
-    @Query("SELECT * FROM tierLists")
+    @Query("SELECT * FROM tierLists ORDER BY id DESC")
     fun getTierLists(): Flow<List<TierListModel>>
 
-    @Query("SELECT * FROM tierLists LIMIT 1")
-    fun getTierList(): Flow<TierListModel?>
-
+    @Query("SELECT * FROM tierLists WHERE id = :id LIMIT 1")
+    fun getTierList(id: String): Flow<TierListModel?>
 }

@@ -26,7 +26,7 @@ fun ImageComponent(
 
     Box(
         modifier = modifier
-            .border(BorderStroke(width = borderDp, color = Color.Black))
+            .border(width = borderDp, color = Color.Black)
             .clickable {
                 onClick()
             }
