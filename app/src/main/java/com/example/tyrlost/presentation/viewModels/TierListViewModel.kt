@@ -1,5 +1,6 @@
 package com.example.tyrlost.presentation.viewModels
 
+import android.graphics.Bitmap
 import android.net.Uri
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
@@ -39,6 +40,9 @@ class TierListViewModel @AssistedInject constructor(
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = TierListModel()
         )
+
+    fun saveTierImageLocally(bitmap: Bitmap): Boolean =
+        fileService.saveTierListImage(bitmap, tierList.value.name)
 
     fun deleteImage(image: Uri) = tierList.value.let {
 

@@ -130,4 +130,7 @@ dependencies {
     // For local unit tests
     testImplementation(libs.hilt.android.testing)
     kspTest(libs.hilt.compiler)
+
+    implementation("dev.shreyaspatil:capturable:2.1.0")
+
 }

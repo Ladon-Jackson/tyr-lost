@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
@@ -17,6 +16,7 @@ import androidx.compose.ui.Modifier
 fun AddButtonsComponent(
     addTier: () -> Unit,
     addImages: (List<Uri>) -> Unit,
+    saveTierAsImage: () -> Unit,
 ) {
 
     val photoPickerLauncher = rememberLauncherForActivityResult(
@@ -28,21 +28,25 @@ fun AddButtonsComponent(
         modifier = Modifier
             .fillMaxWidth()
     ) {
+
         Button(
-            onClick = {
-                addTier()
-            },
-            modifier = Modifier
-                .weight(1f)
+            onClick = { addTier() },
+            modifier = Modifier.weight(1f)
         ) { Text("Add Tier") }
+
         Button(
             onClick = {
                 photoPickerLauncher.launch(
                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                 )
             },
-            modifier = Modifier
-                .weight(1f)
+            modifier = Modifier.weight(1f)
         ) { Text("Add Image") }
+
+        Button(
+            onClick = { saveTierAsImage() },
+            modifier = Modifier.weight(1f)
+        ) { Text("Save As Image") }
+
     }
 }

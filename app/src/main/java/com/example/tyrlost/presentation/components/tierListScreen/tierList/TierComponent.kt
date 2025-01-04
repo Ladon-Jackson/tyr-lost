@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation.components.tierListScreen
+package com.example.tyrlost.presentation.components.tierListScreen.tierList
 
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.example.tyrlost.models.TierModel
+import com.example.tyrlost.presentation.components.tierListScreen.ImageComponent
 
 
 @OptIn(ExperimentalLayoutApi::class)

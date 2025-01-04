@@ -1,7 +1,6 @@
 package com.example.tyrlost.presentation.components.tierListScreen
 
 import android.net.Uri
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -19,7 +18,8 @@ import coil3.compose.AsyncImage
 fun ImageComponent(
     modifier: Modifier,
     image: Uri,
-    isSelected: Boolean, onClick: () -> Unit,
+    isSelected: Boolean = false,
+    onClick: () -> Unit = {},
 ) {
 
     val borderDp: Dp = if(isSelected) 5.dp else 0.dp

@@ -11,9 +11,12 @@ class CurrentSelectionViewModel : ViewModel() {
 
     private val _currentTierOpen: MutableStateFlow<Int?> = MutableStateFlow(null)
     private val _currentImageSelected: MutableStateFlow<Uri?> = MutableStateFlow(null)
+    private val _imageTierDialogOpen: MutableStateFlow<Boolean> = MutableStateFlow(false)
+
 
     val currentTierOpen: StateFlow<Int?> = _currentTierOpen
     val currentImageSelected: StateFlow<Uri?> = _currentImageSelected
+    val tierImageDialogOpen: StateFlow<Boolean> = _imageTierDialogOpen
 
     fun openTierDialog(openTierIndex: Int) = _currentTierOpen.update { openTierIndex }
     fun closeTierDialog() = _currentTierOpen.update { null }
@@ -22,4 +25,6 @@ class CurrentSelectionViewModel : ViewModel() {
         if (it != null) null
         else updatedImage
     }
+
+    fun setImageTierDialogOpen(isOpen: Boolean) = _imageTierDialogOpen.update { isOpen }
 }

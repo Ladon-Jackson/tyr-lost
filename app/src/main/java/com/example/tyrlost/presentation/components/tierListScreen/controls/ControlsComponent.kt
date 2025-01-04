@@ -25,6 +25,7 @@ fun ControlsComponent(
     updateImageSelected: (Uri) -> Unit,
     addTier: () -> Unit,
     addImages: (List<Uri>) -> Unit,
+    saveTierAsImage: () -> Unit,
     moveImageToUnlisted: (Uri) -> Unit,
     moveImageToDestinationImage: (Uri, Uri) -> Unit,
     deleteImage: (Uri) -> Unit,
@@ -41,7 +42,8 @@ fun ControlsComponent(
         } else {
             AddButtonsComponent(
                 addTier = addTier,
-                addImages = addImages
+                addImages = addImages,
+                saveTierAsImage = saveTierAsImage,
             )
         }
 
