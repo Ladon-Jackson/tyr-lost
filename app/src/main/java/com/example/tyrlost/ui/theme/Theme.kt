@@ -17,6 +17,7 @@ private val DarkColorScheme = darkColorScheme(
     tertiary = Pink80
 )
 
+//TODO remove this colour scheme from everywhere in here
 private val LightColorScheme = lightColorScheme(
     primary = Purple40,
     secondary = PurpleGrey40,
@@ -43,11 +44,13 @@ fun TyrlostTheme(
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+//            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            dynamicDarkColorScheme(context)
         }
 
         darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+//        else -> LightColorScheme
+        else -> DarkColorScheme
     }
 
     MaterialTheme(

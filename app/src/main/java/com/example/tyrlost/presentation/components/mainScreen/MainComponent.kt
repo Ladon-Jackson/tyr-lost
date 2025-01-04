@@ -64,13 +64,5 @@ fun MainComponent(
                 text = tierList.name,
             )
         }
-
-//        TODO delete this is just for testing stuff
-//        item {
-//            Button(
-//                colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
-//                onClick = deleteAll
-//            ) { Text("DELETE") }
-//        }
     }
 }
