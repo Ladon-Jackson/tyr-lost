@@ -22,9 +22,9 @@ fun ImageComponent(
     onClick: () -> Unit = {},
 ) {
 
-    Box(
-        modifier = modifier
-            .clickable { onClick() }
+    Box(modifier = modifier
+        .fillMaxSize()
+        .clickable { onClick() }
     ) {
         AsyncImage(
             model = image,

@@ -3,7 +3,9 @@ package com.example.tyrlost.presentation.components.tierListScreen.tierImageDial
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -50,15 +52,6 @@ fun SaveTierImageDialogComponent(
             shape = RoundedCornerShape(16.dp),
         ) {
 
-            Box(
-                modifier = Modifier
-                    .capturable(captureController)
-                    .padding(8.dp)
-                    .border(width = 2.dp, color = Color.Black)
-            ) {
-                TierListImageComponent(tierListModel)
-            }
-
             val scope = rememberCoroutineScope()
 
             Button(
@@ -72,6 +65,15 @@ fun SaveTierImageDialogComponent(
                 }
             ) {
                 Text("Save Image")
+            }
+
+            Box(
+                modifier = Modifier
+                    .capturable(captureController)
+                    .padding(8.dp)
+                    .border(width = 2.dp, color = Color.Black)
+            ) {
+                TierListImageComponent(tierListModel)
             }
         }
     }

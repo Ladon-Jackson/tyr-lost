@@ -1,19 +1,13 @@
 package com.example.tyrlost.presentation.components.tierListScreen.tierImageDialog
 
-import android.graphics.Picture
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.draw
-import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
-import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.net.toUri
@@ -32,30 +26,7 @@ fun TierListImageComponent(
     tierListModel: TierListModel
 ) {
 
-    val picture = remember { Picture() }
-
-    Column(
-        modifier = Modifier.drawWithCache {
-            val width = this.size.width.toInt()
-            val height = this.size.height.toInt()
-            onDrawWithContent {
-
-                val pictureCanvas =
-                    androidx.compose.ui.graphics.Canvas(
-                        picture.beginRecording(
-                            width,
-                            height
-                        )
-                    )
-                draw(this, this.layoutDirection, pictureCanvas, this.size) {
-                    this@onDrawWithContent.drawContent()
-                }
-                picture.endRecording()
-
-                drawIntoCanvas { canvas -> canvas.nativeCanvas.drawPicture(picture) }
-            }
-        }
-    ) {
+    Column(Modifier.fillMaxWidth()) {
         Box(contentAlignment = Alignment.Center){
             Text(
                 modifier = Modifier.fillMaxWidth(),
@@ -65,7 +36,7 @@ fun TierListImageComponent(
             )
         }
 
-        Column {
+        Column(Modifier.fillMaxWidth()) {
             tierListModel.tiers.forEach { TierImageComponent(it) }
         }
     }

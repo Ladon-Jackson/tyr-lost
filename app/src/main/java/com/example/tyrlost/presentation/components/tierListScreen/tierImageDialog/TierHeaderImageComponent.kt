@@ -16,17 +16,15 @@ import androidx.compose.ui.unit.Dp
 
 @Composable
 fun TierHeaderImageComponent(
+    modifier: Modifier,
     name: String,
     color: Color,
-    tileSize: Dp,
 ) {
     Box(
-        modifier = Modifier.background(color)
+        modifier = modifier.background(color)
     ) {
         Text(
-            modifier = Modifier
-                .wrapContentHeight(align = Alignment.CenterVertically)
-                .size(tileSize),
+            modifier = Modifier.wrapContentHeight(align = Alignment.CenterVertically),
             text = name,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
