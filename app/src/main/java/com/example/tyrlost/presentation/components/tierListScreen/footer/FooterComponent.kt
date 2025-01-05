@@ -50,7 +50,8 @@ fun FooterComponent(
             ) {
                 items(unlistedImages) {
                     ImageComponent(
-                        modifier = Modifier.width(width = 80.dp),
+                        modifier = Modifier,
+//                            .fillMaxWidth(0.1f), //TODO 0.25 for some reason makes the images overflow at 3 instead of 4. Please don't forget this ugliness,
                         image = it,
                         isSelected = it == currentImageSelected,
                         onClick = {

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.Shapes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -47,9 +46,8 @@ fun TierImageComponent(
                 tierModel.images.forEach {
                     ImageComponent(
                         modifier = Modifier
-                            .fillMaxWidth(0.19999f) //TODO 0.125 for some reason makes the images overflow at 3 instead of 4. Please don't forget this ugliness
-                            .aspectRatio(1f)
-                            .padding(1.dp),
+                            .fillMaxWidth(0.2f)
+                            .aspectRatio(1f),
                         image = it,
                         isSelected = false
                     )

@@ -73,9 +73,8 @@ fun TierComponent(
                 tierModel.images.forEach {
                     ImageComponent(
                         modifier = Modifier
-                            .fillMaxWidth(0.19999f) //TODO 0.25 for some reason makes the images overflow at 3 instead of 4. Please don't forget this ugliness
-                            .aspectRatio(1f)
-                            .padding(1.dp),
+                            .fillMaxWidth(0.2f)
+                            .aspectRatio(1f),
                         image = it,
                         isSelected = it == currentImageSelected,
                         onClick = {
