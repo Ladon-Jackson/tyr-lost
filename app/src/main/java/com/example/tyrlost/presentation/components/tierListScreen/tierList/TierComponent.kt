@@ -69,11 +69,11 @@ fun TierComponent(
                 openTierDialog = openTierDialog
             )
 
-            FlowRow(modifier = Modifier.weight(4f)) {
+            FlowRow(modifier = Modifier.weight(5f)) {
                 tierModel.images.forEach {
                     ImageComponent(
                         modifier = Modifier
-                            .fillMaxWidth(0.2499999f) //TODO 0.25 for some reason makes the images overflow at 3 instead of 4. Please don't forget this ugliness
+                            .fillMaxWidth(0.19999f) //TODO 0.25 for some reason makes the images overflow at 3 instead of 4. Please don't forget this ugliness
                             .aspectRatio(1f)
                             .padding(1.dp),
                         image = it,
