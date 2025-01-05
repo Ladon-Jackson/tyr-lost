@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation.components.tierListScreen
+package com.example.tyrlost.presentation.components.common
 
 import android.net.Uri
 import androidx.compose.foundation.border
@@ -27,9 +27,7 @@ fun ImageComponent(
     Box(
         modifier = modifier
             .border(width = borderDp, color = Color.Black)
-            .clickable {
-                onClick()
-            }
+            .clickable { onClick() }
     ) {
         AsyncImage(
             model = image,

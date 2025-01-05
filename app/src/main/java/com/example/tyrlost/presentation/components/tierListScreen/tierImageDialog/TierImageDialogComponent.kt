@@ -41,8 +41,7 @@ fun SaveTierImageDialogComponent(
 
     Dialog(onDismissRequest = onDismiss) {
         Card(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(16.dp),
         ) {
 
@@ -64,7 +63,7 @@ fun SaveTierImageDialogComponent(
                     onDismiss()
                 }
             ) {
-                Text("SAVE")
+                Text("Save Image")
             }
         }
     }

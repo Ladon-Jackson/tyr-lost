@@ -1,23 +1,21 @@
 package com.example.tyrlost.presentation.components.tierListScreen.tierList
 
 import android.net.Uri
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.tyrlost.models.TierListModel
-import com.example.tyrlost.presentation.components.tierListScreen.controls.FooterComponent
+import com.example.tyrlost.presentation.components.tierListScreen.footer.FooterComponent
 import com.example.tyrlost.presentation.components.tierListScreen.header.HeaderComponent
 import com.example.tyrlost.presentation.components.tierListScreen.tierDialog.TierDialogComponent
 import com.example.tyrlost.presentation.components.tierListScreen.tierImageDialog.SaveTierImageDialogComponent
@@ -36,6 +34,7 @@ fun TierListComponent(
     tierListViewModel: TierListViewModel =
         hiltViewModel<TierListViewModel, TierListViewModel.TierListViewModelFactory> { it.create(id) },
 ) {
+
 
     val tierList: TierListModel by tierListViewModel.tierList.collectAsStateWithLifecycle()
     val currentTierOpen: Int? by currentSelectionViewModel.currentTierOpen.collectAsStateWithLifecycle()
@@ -68,6 +67,7 @@ fun TierListComponent(
 
         LazyColumn(
             modifier = Modifier
+                .padding(3.dp)
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .weight(1f)

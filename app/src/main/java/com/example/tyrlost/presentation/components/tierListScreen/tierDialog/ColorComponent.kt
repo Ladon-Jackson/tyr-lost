@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.example.tyrlost.ui.theme.tierColors
 
@@ -20,6 +21,7 @@ fun ColorComponent(
     selectColor: (Color) -> Unit,
     closeColors: () -> Unit
 ) {
+
     FlowRow {
         tierColors.forEach{
             Box(

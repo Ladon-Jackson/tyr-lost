@@ -16,7 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.tyrlost.R
-import com.example.tyrlost.presentation.components.tierListScreen.IconButtonComponent
+import com.example.tyrlost.presentation.components.common.IconButtonComponent
+import com.example.tyrlost.presentation.components.common.Icons
 
 
 @Composable
@@ -33,10 +34,9 @@ fun TierDetailsComponent(
 
     Column {
         IconButtonComponent(
-            modifier = Modifier
-                .align(Alignment.End),
+            modifier = Modifier.align(Alignment.End),
             onClick = onDelete,
-            drawableId = R.drawable.deleteicon,
+            imageVector = Icons.delete,
             description = "delete"
         )
 

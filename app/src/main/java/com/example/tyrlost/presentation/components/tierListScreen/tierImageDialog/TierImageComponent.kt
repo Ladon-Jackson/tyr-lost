@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.tyrlost.models.TierModel
-import com.example.tyrlost.presentation.components.tierListScreen.ImageComponent
+import com.example.tyrlost.presentation.components.common.ImageComponent
 
 
 @Composable

@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation.components.tierListScreen.controls
+package com.example.tyrlost.presentation.components.tierListScreen.footer
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -10,7 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.tyrlost.R
-import com.example.tyrlost.presentation.components.tierListScreen.IconButtonComponent
+import com.example.tyrlost.presentation.components.common.IconButtonComponent
+import com.example.tyrlost.presentation.components.common.Icons
 
 
 @Composable
@@ -33,7 +34,7 @@ fun FooterButtonsComponent(
 
         IconButtonComponent(
             onClick = { addTier() },
-            drawableId = R.drawable.newtiericon,
+            imageVector = Icons.addCircle,
             description = "Add tier",
         )
 
@@ -43,13 +44,13 @@ fun FooterButtonsComponent(
                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                 )
             },
-            drawableId = R.drawable.newimageicon,
+            imageVector = Icons.add,
             description = "Add image",
         )
 
         IconButtonComponent(
             onClick = { saveTierAsImage() },
-            drawableId = R.drawable.saveicon,
+            imageVector = Icons.done,
             description = "Save as image",
         )
     }
