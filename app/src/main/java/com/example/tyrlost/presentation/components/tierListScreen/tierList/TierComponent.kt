@@ -7,11 +7,15 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,54 +37,48 @@ fun TierComponent(
     moveImageToDestinationImage: (Uri, Uri) -> Unit,
 ) {
 
-    val tileSize = LocalConfiguration.current.screenWidthDp / 5
-
-    Row(
+    Card(
         modifier = Modifier
-            .defaultMinSize(minHeight = tileSize.dp)
+            .padding(2.dp)
             .fillMaxWidth()
-            .background(Color.Gray)
             .clickable {
                 if (currentImageSelected != null) {
                     moveImageToTier(index, currentImageSelected)
                     updateImageSelected(currentImageSelected)
                 }
             }
-            .border(1.dp, Color.Black)
     ) {
+        Row {
+            TierHeaderComponent(
+                modifier = Modifier
+                    .weight(1f)
+                    .aspectRatio(1f),
+                index = index,
+                name = tierModel.name,
+                color = tierModel.color,
+                currentImageSelected = currentImageSelected,
+                moveImageToTier = moveImageToTier,
+                updateImageSelected = updateImageSelected,
+                openTierDialog = openTierDialog
+            )
 
-        //TODO ugly way of doing this probs a nicer way to set height but maxHeight doesn't work for some reason
-        val tierHeightInTiles: Int =
-            if(tierModel.images.isEmpty()) 1 else ((tierModel.images.size-1) / 4) + 1
-
-        val tierHeight = (tileSize.dp) * tierHeightInTiles
-
-        TierHeaderComponent(
-            modifier = Modifier
-                .width(width = tileSize.dp)
-                .height(height = tierHeight),
-            index = index,
-            name = tierModel.name,
-            color = tierModel.color,
-            currentImageSelected = currentImageSelected,
-            moveImageToTier = moveImageToTier,
-            updateImageSelected = updateImageSelected,
-            openTierDialog = openTierDialog
-        )
-
-        FlowRow {
-            tierModel.images.forEach {
-                ImageComponent(
-                    modifier = Modifier.size(tileSize.dp),
-                    image = it,
-                    isSelected = it == currentImageSelected,
-                    onClick = {
-                        if (!(currentImageSelected == null || currentImageSelected == it)) {
-                            moveImageToDestinationImage(currentImageSelected, it)
+            FlowRow(modifier = Modifier.weight(4f)) {
+                tierModel.images.forEach {
+                    ImageComponent(
+                        modifier = Modifier
+                            .fillMaxWidth(0.2499999f) //TODO 0.25 for some reason makes the images overflow at 3 instead of 4. Please don't forget this ugliness
+                            .aspectRatio(1f)
+                            .padding(1.dp),
+                        image = it,
+                        isSelected = it == currentImageSelected,
+                        onClick = {
+                            if (!(currentImageSelected == null || currentImageSelected == it)) {
+                                moveImageToDestinationImage(currentImageSelected, it)
+                            }
+                            updateImageSelected(it)
                         }
-                        updateImageSelected(it)
-                    }
-                )
+                    )
+                }
             }
         }
     }

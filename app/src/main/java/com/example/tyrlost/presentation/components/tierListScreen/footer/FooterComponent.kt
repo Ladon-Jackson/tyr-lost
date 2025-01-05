@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,32 +33,34 @@ fun FooterComponent(
     deleteImage: (Uri) -> Unit,
 ) {
     Column(
-        Modifier.padding(10.dp)
+        Modifier.padding(8.dp)
     ) {
-        LazyRow(
-            modifier = Modifier
-                .height(80.dp)
-                .fillMaxWidth()
-                .background(Color.DarkGray)
-                .clickable {
-                    if (currentImageSelected != null) {
-                        moveImageToUnlisted(currentImageSelected)
-                        updateImageSelected(currentImageSelected)
-                    }
-                }
-        ) {
-            items(unlistedImages) {
-                ImageComponent(
-                    modifier = Modifier.width(width = 80.dp),
-                    image = it,
-                    isSelected = it == currentImageSelected,
-                    onClick = {
-                        if (!(currentImageSelected == null || currentImageSelected == it)) {
-                            moveImageToDestinationImage(currentImageSelected, it)
+        Card(Modifier.padding(4.dp)) {
+            LazyRow(
+                modifier = Modifier
+                    .height(80.dp)
+                    .fillMaxWidth()
+                    .background(Color.DarkGray)
+                    .clickable {
+                        if (currentImageSelected != null) {
+                            moveImageToUnlisted(currentImageSelected)
+                            updateImageSelected(currentImageSelected)
                         }
-                        updateImageSelected(it)
                     }
-                )
+            ) {
+                items(unlistedImages) {
+                    ImageComponent(
+                        modifier = Modifier.width(width = 80.dp),
+                        image = it,
+                        isSelected = it == currentImageSelected,
+                        onClick = {
+                            if (!(currentImageSelected == null || currentImageSelected == it)) {
+                                moveImageToDestinationImage(currentImageSelected, it)
+                            }
+                            updateImageSelected(it)
+                        }
+                    )
+                }
             }
         }
 

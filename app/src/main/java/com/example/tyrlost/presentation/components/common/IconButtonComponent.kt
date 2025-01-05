@@ -19,17 +19,18 @@ fun IconButtonComponent(
     modifier: Modifier = Modifier,
 ) {
 
-    val iconSize = LocalConfiguration.current.screenWidthDp / 6
+    val iconSize = LocalConfiguration.current.screenWidthDp / 8
 
     FloatingActionButton(
+        modifier = modifier
+            .width(iconSize.dp)
+            .aspectRatio(1f),
         onClick = onClick
     ) {
         Icon(
             imageVector = imageVector,
             contentDescription = description,
-            modifier = modifier
-                .width(iconSize.dp)
-                .aspectRatio(1f)
+            modifier = modifier.aspectRatio(1f)
         )
     }
 }

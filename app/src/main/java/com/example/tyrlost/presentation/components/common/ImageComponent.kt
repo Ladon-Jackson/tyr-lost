@@ -22,11 +22,8 @@ fun ImageComponent(
     onClick: () -> Unit = {},
 ) {
 
-    val borderDp: Dp = if(isSelected) 5.dp else 0.dp
-
     Box(
         modifier = modifier
-            .border(width = borderDp, color = Color.Black)
             .clickable { onClick() }
     ) {
         AsyncImage(
