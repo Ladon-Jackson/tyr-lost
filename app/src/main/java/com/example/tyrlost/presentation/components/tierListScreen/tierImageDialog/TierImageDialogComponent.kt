@@ -21,6 +21,8 @@ import com.example.tyrlost.presentation.viewModels.TierListViewModel
 import dev.shreyaspatil.capturable.capturable
 import dev.shreyaspatil.capturable.controller.rememberCaptureController
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.future.asCompletableFuture
+import kotlinx.coroutines.future.await
 import kotlinx.coroutines.launch
 
 
@@ -59,8 +61,8 @@ fun SaveTierImageDialogComponent(
                         val bitmapAsync = captureController.captureAsync()
                         val bitmap: ImageBitmap = bitmapAsync.await()
                         tierListViewModel.saveTierImageLocally(bitmap.asAndroidBitmap())
+                        onDismiss()
                     }
-                    onDismiss()
                 }
             ) {
                 Text("Save Image")
