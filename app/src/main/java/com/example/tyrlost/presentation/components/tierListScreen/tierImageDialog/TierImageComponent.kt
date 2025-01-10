@@ -1,5 +1,6 @@
 package com.example.tyrlost.presentation.components.tierListScreen.tierImageDialog
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -10,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.tyrlost.models.TierModel
 import com.example.tyrlost.presentation.components.common.ImageComponent
@@ -24,7 +26,8 @@ fun TierImageComponent(
     Card(
         modifier = Modifier
             .padding(2.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .background(Color.Black),
         shape = RoundedCornerShape(
             topStart = 8.dp,
             bottomStart = 8.dp,
@@ -42,7 +45,7 @@ fun TierImageComponent(
                 color = tierModel.color,
             )
 
-            FlowRow(modifier = Modifier.weight(5f)) {
+            FlowRow(modifier = Modifier.weight(5f).background(Color(0xFF0E0E0E))) {
                 tierModel.images.forEach {
                     ImageComponent(
                         modifier = Modifier

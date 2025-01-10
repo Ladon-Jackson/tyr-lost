@@ -2,6 +2,7 @@ package com.example.tyrlost.presentation.components.tierListScreen.tierImageDial
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
@@ -24,7 +25,9 @@ fun TierHeaderImageComponent(
         modifier = modifier.background(color)
     ) {
         Text(
-            modifier = Modifier.wrapContentHeight(align = Alignment.CenterVertically),
+            modifier = Modifier
+                .fillMaxSize()
+                .wrapContentHeight(align = Alignment.CenterVertically),
             text = name,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,

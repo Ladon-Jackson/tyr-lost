@@ -14,7 +14,7 @@ data class TierListModel(
     val tiers: List<TierModel> = defaultTiers,
     val unlistedTier: TierModel = TierModel(), //TODO make converter work properly so this can be switched back to List<Uri>
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val name: String = "New Tier List",
+    val name: String = "Anime 2024",
 )
 
 val defaultTiers = listOf(

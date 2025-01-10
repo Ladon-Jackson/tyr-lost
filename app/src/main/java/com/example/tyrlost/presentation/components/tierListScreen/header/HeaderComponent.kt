@@ -17,7 +17,8 @@ import com.example.tyrlost.presentation.components.common.Icons
 @Composable
 fun HeaderComponent(
     tierListName: String,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onEdit: () -> Unit,
 ) {
 
     Row(
@@ -41,7 +42,7 @@ fun HeaderComponent(
         IconButtonComponent(
             imageVector = Icons.edit,
             description = "change name",
-            onClick = onBack
+            onClick = onEdit
         )
     }
 

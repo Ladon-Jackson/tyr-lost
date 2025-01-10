@@ -1,4 +1,4 @@
-package com.example.tyrlost.presentation.components.tierListScreen.tierDialog
+package com.example.tyrlost.presentation.components.common
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 
 
 @Composable
-fun TierDialogButtonsComponent(
+fun DialogButtonsComponent(
     onDismiss: () -> Unit,
     onUpdate: () -> Unit,
     onReset: () -> Unit,

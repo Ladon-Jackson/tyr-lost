@@ -15,9 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.tyrlost.R
 import com.example.tyrlost.presentation.components.common.IconButtonComponent
 import com.example.tyrlost.presentation.components.common.Icons
+import com.example.tyrlost.presentation.components.common.DialogButtonsComponent
 
 
 @Composable
@@ -64,7 +64,7 @@ fun TierDetailsComponent(
             )
         }
 
-        TierDialogButtonsComponent(
+        DialogButtonsComponent(
             onDismiss = onDismiss,
             onUpdate = onUpdate,
             onReset = onReset

@@ -19,6 +19,7 @@ import com.example.tyrlost.presentation.components.tierListScreen.footer.FooterC
 import com.example.tyrlost.presentation.components.tierListScreen.header.HeaderComponent
 import com.example.tyrlost.presentation.components.tierListScreen.tierDialog.TierDialogComponent
 import com.example.tyrlost.presentation.components.tierListScreen.tierImageDialog.SaveTierImageDialogComponent
+import com.example.tyrlost.presentation.components.tierListScreen.tierListDialog.TierListDetailsDialogComponent
 import com.example.tyrlost.presentation.viewModels.CurrentSelectionViewModel
 import com.example.tyrlost.presentation.viewModels.TierListViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -35,11 +36,11 @@ fun TierListComponent(
         hiltViewModel<TierListViewModel, TierListViewModel.TierListViewModelFactory> { it.create(id) },
 ) {
 
-
     val tierList: TierListModel by tierListViewModel.tierList.collectAsStateWithLifecycle()
     val currentTierOpen: Int? by currentSelectionViewModel.currentTierOpen.collectAsStateWithLifecycle()
     val currentImageSelected: Uri? by currentSelectionViewModel.currentImageSelected.collectAsStateWithLifecycle()
     val tierImageDialogIsOpen: Boolean by currentSelectionViewModel.tierImageDialogOpen.collectAsStateWithLifecycle()
+    val tierListDetailsDialogIsOpen: Boolean by currentSelectionViewModel.tierListDetailsDialogOpen.collectAsStateWithLifecycle()
 
     currentTierOpen?.let {
         TierDialogComponent(
@@ -57,13 +58,19 @@ fun TierListComponent(
         onDismiss = { currentSelectionViewModel.setImageTierDialogOpen(false) }
     )
 
+    if(tierListDetailsDialogIsOpen) TierListDetailsDialogComponent(
+        name = tierList.name,
+        onDismiss = { currentSelectionViewModel.setTierDetailsDialogOpen(false) },
+        onUpdate = tierListViewModel::updateTierListName,
+    )
+
     Column(modifier = modifier) {
 
         HeaderComponent(
             tierListName = tierList.name,
-            onBack = navigateToMain
+            onBack = navigateToMain,
+            onEdit = { currentSelectionViewModel.setTierDetailsDialogOpen(true) }
         )
-
 
         LazyColumn(
             modifier = Modifier
@@ -86,7 +93,7 @@ fun TierListComponent(
         }
 
         FooterComponent(
-            unlistedImages = tierList.unlistedTier.images,                                              //TODO change back to this when fixed                   unlistedImages = tierList.unlistedImages,
+            unlistedImages = tierList.unlistedTier.images,
             currentImageSelected = currentImageSelected,
             updateImageSelected = currentSelectionViewModel::updateImageSelected,
             addTier = tierListViewModel::addTier,

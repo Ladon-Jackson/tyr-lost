@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
@@ -32,9 +31,7 @@ fun FooterComponent(
     moveImageToDestinationImage: (Uri, Uri) -> Unit,
     deleteImage: (Uri) -> Unit,
 ) {
-    Column(
-        Modifier.padding(8.dp)
-    ) {
+    Column(Modifier.padding(8.dp)) {
         Card(Modifier.padding(4.dp)) {
             LazyRow(
                 modifier = Modifier
@@ -50,8 +47,7 @@ fun FooterComponent(
             ) {
                 items(unlistedImages) {
                     ImageComponent(
-                        modifier = Modifier,
-//                            .fillMaxWidth(0.1f), //TODO 0.25 for some reason makes the images overflow at 3 instead of 4. Please don't forget this ugliness,
+                        modifier = Modifier.fillMaxWidth(0.1f),
                         image = it,
                         isSelected = it == currentImageSelected,
                         onClick = {

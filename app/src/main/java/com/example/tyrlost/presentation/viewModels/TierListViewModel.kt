@@ -78,6 +78,11 @@ class TierListViewModel @AssistedInject constructor(
         viewModelScope.launch { dao.upsertTierList(updatedTierList) }
     }
 
+    fun updateTierListName(name: String) = tierList.value.let {
+        val updatedTierList = it.copy(name = name)
+        viewModelScope.launch { dao.upsertTierList(updatedTierList) }
+    }
+
     fun updateTierDetails(changeIndex: Int, newName: String? = null, newColor: Color? = null) = tierList.value.let {
         val updatedTierList = it.copy(
             tiers = it.tiers.mapIndexed { idx, tier ->
@@ -91,7 +96,7 @@ class TierListViewModel @AssistedInject constructor(
     fun moveImageToUnlisted(image: Uri) = tierList.value.let {
         val updatedTierList = it.copy(
             tiers = removeImageTiers(image, it.tiers),
-            unlistedTier = TierModel(images = addImage(image, removeImageList(image, it.unlistedTier.images))) //TODO change back to this when fixed                unlistedImages = addImage(image, removeImageList(image, it.unlistedImages))
+            unlistedTier = TierModel(images = addImage(image, removeImageList(image, it.unlistedTier.images)))
         )
         viewModelScope.launch { dao.upsertTierList(updatedTierList) }
         updatedTierList
@@ -99,7 +104,7 @@ class TierListViewModel @AssistedInject constructor(
 
     fun moveImageToTier(updatedTierIndex: Int, image: Uri) = tierList.value.let {
         val updatedTierList = it.copy(
-            unlistedTier = TierModel(images = removeImageList(image, it.unlistedTier.images)),              //TODO change back to this when fixed             unlistedImages = removeImageList(image, it.unlistedImages),
+            unlistedTier = TierModel(images = removeImageList(image, it.unlistedTier.images)),
             tiers = addImage(image, removeImageTiers(image, it.tiers), updatedTierIndex)
         )
         viewModelScope.launch { dao.upsertTierList(updatedTierList) }
@@ -108,10 +113,10 @@ class TierListViewModel @AssistedInject constructor(
     fun moveImageToDestinationImageTiers(movingImage: Uri, destinationImage: Uri) =
         tierList.value.let {
             val updatedTierList = it.copy(
-                unlistedTier = TierModel(images = moveImageToDestinationImageList(                      //TODO change back to this when fixed unlistedTier = moveImageToDestinationImageList(
+                unlistedTier = TierModel(images = moveImageToDestinationImageList(
                     movingImage = movingImage,
                     destinationImage = destinationImage,
-                    images = it.unlistedTier.images,                                                    //TODO change back to this when fixed              images = it.unlistedImages,
+                    images = it.unlistedTier.images,
                 )),
                 tiers = it.tiers.map { tier ->
                     tier.copy(

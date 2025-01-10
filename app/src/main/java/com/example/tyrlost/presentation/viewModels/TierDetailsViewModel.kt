@@ -26,6 +26,5 @@ class TierDetailsViewModel : ViewModel() {
 
     fun onReset() {
         _text.update { "" }
-//        _color.update { "" }
     }
 }
