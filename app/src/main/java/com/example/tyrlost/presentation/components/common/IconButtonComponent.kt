@@ -1,7 +1,9 @@
 package com.example.tyrlost.presentation.components.common
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.twotone.AddCircle
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -16,21 +18,17 @@ fun IconButtonComponent(
     imageVector: ImageVector,
     description: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
 
     val iconSize = LocalConfiguration.current.screenWidthDp / 8
 
-    FloatingActionButton(
+    Icon(
+        imageVector = imageVector,
+        contentDescription = description,
         modifier = modifier
             .width(iconSize.dp)
-            .aspectRatio(1f),
-        onClick = onClick
-    ) {
-        Icon(
-            imageVector = imageVector,
-            contentDescription = description,
-            modifier = modifier.aspectRatio(1f)
-        )
-    }
+            .aspectRatio(1f)
+            .clickable { onClick() },
+    )
 }

@@ -1,23 +1,32 @@
 package com.example.tyrlost.presentation.components.mainScreen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.tyrlost.models.TierListModel
+import com.example.tyrlost.presentation.components.common.IconButtonComponent
+import com.example.tyrlost.presentation.components.common.Icons
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainComponent(
     modifier: Modifier = Modifier,
@@ -27,36 +36,51 @@ fun MainComponent(
     tierLists: List<TierListModel>
 ) {
 
-    LazyColumn(modifier = modifier.fillMaxWidth()) {
-        item {
+    Column(modifier = modifier.fillMaxWidth()) {
 
-            Card(
-                modifier = Modifier
-                    .height(100.dp)
-                    .fillParentMaxWidth()
-                    .clickable {
-                        createNewTierList()
-                    }
-            ) {
+        CenterAlignedTopAppBar(
+            title = {
                 Text(
-                    text = "Create New Tier List",
-                    textAlign = TextAlign.Center,
-                    fontSize = 25.sp,
-                    color = Color.Black,
-                    modifier = Modifier
-                        .fillMaxWidth()
+                    text = "Tyr Lost",
+                    textAlign = TextAlign.Center
                 )
             }
-        }
+        )
 
-        items(tierLists) { tierList ->
-            TierListBoxComponent(
-                modifier = Modifier
-                    .fillParentMaxWidth()
-                    .clickable { navigateToTierList(tierList.id.toString()) },
-                deleteTier = {deleteTier(tierList)},
-                text = tierList.name,
-            )
+
+
+        LazyColumn(/*modifier = Modifier.weight(1f)*/) {
+            item {
+                Card(
+                    modifier = Modifier
+                        .height(100.dp)
+                        .padding(4.dp)
+                        .fillParentMaxWidth()
+                        .clickable {
+                            createNewTierList()
+                        }
+                ) {
+                    Icon(
+                        imageVector = Icons.add,
+                        contentDescription = "Create new tier list",
+                        modifier = Modifier
+                            .aspectRatio(1f)
+                            .fillMaxHeight()
+                            .padding(16.dp)
+                            .align(Alignment.CenterHorizontally)
+                    )
+                }
+            }
+
+            items(tierLists) { tierList ->
+                TierListBoxComponent(
+                    modifier = Modifier
+                        .fillParentMaxWidth()
+                        .clickable { navigateToTierList(tierList.id.toString()) },
+                    deleteTier = { deleteTier(tierList) },
+                    text = tierList.name,
+                )
+            }
         }
     }
 }

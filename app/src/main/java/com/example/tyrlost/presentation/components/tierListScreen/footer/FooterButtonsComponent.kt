@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.tyrlost.R
 import com.example.tyrlost.presentation.components.common.IconButtonComponent
 import com.example.tyrlost.presentation.components.common.Icons
 
@@ -27,14 +26,13 @@ fun FooterButtonsComponent(
     )
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround
     ) {
 
         IconButtonComponent(
             onClick = { addTier() },
-            imageVector = Icons.addCircle,
+            imageVector = Icons.add,
             description = "Add tier",
         )
 
@@ -44,7 +42,7 @@ fun FooterButtonsComponent(
                     PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
                 )
             },
-            imageVector = Icons.add,
+            imageVector = Icons.addImage,
             description = "Add image",
         )
 
