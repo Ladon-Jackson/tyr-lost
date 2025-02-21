@@ -14,14 +14,10 @@ import javax.inject.Inject
 
 @kotlinx.coroutines.ExperimentalCoroutinesApi
 @HiltViewModel
-class TierListsViewModel @Inject constructor(
+class MultipleTierListsViewModel @Inject constructor(
     private val dao: TierListDao,
     private val fileService: FileHelper,
 ): ViewModel() {
-
-    fun deleteAllImages() {
-        fileService.deleteAllImages()
-    }
 
     val tierLists: StateFlow<List<TierListModel>> = dao
         .getTierLists()

@@ -20,8 +20,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 @kotlinx.coroutines.ExperimentalCoroutinesApi
-@HiltViewModel(assistedFactory = TierListViewModel.TierListViewModelFactory::class)
-class TierListViewModel @AssistedInject constructor(
+@HiltViewModel(assistedFactory = SingleTierListViewModel.TierListViewModelFactory::class)
+class SingleTierListViewModel @AssistedInject constructor(
     @Assisted private val id: String,
     private val fileService: FileHelper,
     private val dao: TierListDao
@@ -29,7 +29,7 @@ class TierListViewModel @AssistedInject constructor(
 
     @AssistedFactory
     interface TierListViewModelFactory {
-        fun create(id: String): TierListViewModel
+        fun create(id: String): SingleTierListViewModel
     }
 
     val tierList: StateFlow<TierListModel> = dao

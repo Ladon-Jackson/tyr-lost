@@ -1,10 +1,12 @@
 package com.example.tyrlost.presentation.components.tierListScreen.tierImageDialog
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,24 +38,29 @@ fun TierImageComponent(
         ),
     ) {
 
+        val rowHeight: Int = ((tierModel.images.size-1)/5)+1 //TODO make this not ugly
+        val rowRatio: Float = 1f/rowHeight
+
         Row {
             TierHeaderImageComponent(
                 modifier = Modifier
                     .weight(1f)
-                    .aspectRatio(1f),
+                    .aspectRatio(rowRatio),
                 name = tierModel.name,
                 color = tierModel.color,
             )
 
             FlowRow(modifier = Modifier.weight(5f).background(Color(0xFF0E0E0E))) {
-                tierModel.images.forEach {
-                    ImageComponent(
-                        modifier = Modifier
-                            .fillMaxWidth(0.2f)
-                            .aspectRatio(1f),
-                        image = it,
-                        isSelected = false
-                    )
+                if(tierModel.images.isEmpty()){
+                    Box(Modifier.fillMaxWidth(0.2f).aspectRatio(1f))
+                } else {
+                    tierModel.images.forEach {
+                        ImageComponent(
+                            modifier = Modifier.fillMaxWidth(0.2f).aspectRatio(1f),
+                            image = it,
+                            isSelected = false
+                        )
+                    }
                 }
             }
         }

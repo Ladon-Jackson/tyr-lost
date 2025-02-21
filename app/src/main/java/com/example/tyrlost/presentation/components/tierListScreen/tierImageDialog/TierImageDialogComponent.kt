@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.tyrlost.models.TierListModel
-import com.example.tyrlost.presentation.viewModels.TierListViewModel
+import com.example.tyrlost.presentation.viewModels.SingleTierListViewModel
 import dev.shreyaspatil.capturable.capturable
 import dev.shreyaspatil.capturable.controller.rememberCaptureController
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -36,8 +36,8 @@ import kotlinx.coroutines.launch
 fun SaveTierImageDialogComponent(
     tierListModel: TierListModel,
     onDismiss: () -> Unit,
-    tierListViewModel: TierListViewModel =
-        hiltViewModel<TierListViewModel, TierListViewModel.TierListViewModelFactory> {it.create(tierListModel.id.toString()) },
+    tierListViewModel: SingleTierListViewModel =
+        hiltViewModel<SingleTierListViewModel, SingleTierListViewModel.TierListViewModelFactory> {it.create(tierListModel.id.toString()) },
 ) {
 
     val captureController = rememberCaptureController()

@@ -13,6 +13,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.em
+import com.example.tyrlost.presentation.components.common.ResizingTextComponent
 
 
 @Composable
@@ -31,6 +34,7 @@ fun TierHeaderImageComponent(
             text = name,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold,
+            fontSize = 2.em,
             color = Color.DarkGray
         )
     }

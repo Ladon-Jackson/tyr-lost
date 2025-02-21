@@ -21,7 +21,7 @@ import com.example.tyrlost.presentation.components.tierListScreen.tierDialog.Tie
 import com.example.tyrlost.presentation.components.tierListScreen.tierImageDialog.SaveTierImageDialogComponent
 import com.example.tyrlost.presentation.components.tierListScreen.tierListDialog.TierListDetailsDialogComponent
 import com.example.tyrlost.presentation.viewModels.CurrentSelectionViewModel
-import com.example.tyrlost.presentation.viewModels.TierListViewModel
+import com.example.tyrlost.presentation.viewModels.SingleTierListViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
@@ -32,8 +32,8 @@ fun TierListComponent(
     navigateToMain: () -> Unit,
     modifier: Modifier = Modifier,
     currentSelectionViewModel: CurrentSelectionViewModel = viewModel(),
-    tierListViewModel: TierListViewModel =
-        hiltViewModel<TierListViewModel, TierListViewModel.TierListViewModelFactory> { it.create(id) },
+    tierListViewModel: SingleTierListViewModel =
+        hiltViewModel<SingleTierListViewModel, SingleTierListViewModel.TierListViewModelFactory> { it.create(id) },
 ) {
 
     val tierList: TierListModel by tierListViewModel.tierList.collectAsStateWithLifecycle()

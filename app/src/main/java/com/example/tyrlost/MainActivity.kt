@@ -20,7 +20,7 @@ import com.example.tyrlost.models.TierListModel
 import com.example.tyrlost.presentation.components.mainScreen.MainComponent
 import com.example.tyrlost.presentation.components.tierListScreen.tierList.TierListComponent
 import com.example.tyrlost.presentation.navigation.Screen
-import com.example.tyrlost.presentation.viewModels.TierListsViewModel
+import com.example.tyrlost.presentation.viewModels.MultipleTierListsViewModel
 import com.example.tyrlost.ui.theme.TyrlostTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -38,7 +38,7 @@ class MainActivity: ComponentActivity() {
 
                     val navController = rememberNavController()
 
-                    val tierListsViewModel: TierListsViewModel = hiltViewModel<TierListsViewModel>()
+                    val tierListsViewModel: MultipleTierListsViewModel = hiltViewModel<MultipleTierListsViewModel>()
                     val tierLists: List<TierListModel> by tierListsViewModel
                         .tierLists
                         .collectAsStateWithLifecycle()
